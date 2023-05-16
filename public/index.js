@@ -28,11 +28,17 @@ let users = {}; // socket.id -> username, answers, score
 
 // event listeners for the name input
 nameB.addEventListener('click', function() {
-    // get the name
     let name = nameI.value;
-    // send the name to the server
+
+    // check if the name is valid
+    if (name.length < 1) {
+        alert('Please enter a name.');
+        return;
+    }
+
     socket.emit('name', name);
-    // hide the name input
+
+    // next screen
     nameF.style.display = 'none';
     k.style.display = 'grid';
 });
