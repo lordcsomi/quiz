@@ -8,39 +8,42 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <form class="nameform">
-        <input type="text" id="nameput" value="Name">
-        <label for="nameput">Ide irjad a nevedet!</label>
-    </form>
-    <form class="kahoot">
+    <div class="nameform" id="nameform">
+        <h1 for="nameput">Ide irjad a nevedet!</h1>
+        <div>
+            <input type="text" id="nameput" placeholder="Név">
+            <button id="namebutton">Küldés</button>
+        </div>
+        <p>Nem, nincsen név ellenőrzés szóval csak okosan!</p>
+    </div>
+    <div class="kahoot" id="kahoot">
         <p class="question">Please answer the first question.</p>
         
-        <div class="answerbox ans1">
-            <input type="radio" id="ans11" name="q1">
+        <div class="answerbox ans1" id="answerbox1">
+            <input type="radio" id="ans1" name="q1">
             <label for="ans1">Mizik</label>
         </div>
 
-        <div class="answerbox ans2">
-            <input type="radio" id="ans12" name="q1">
+        <div class="answerbox ans2" id="answerbox2">
+            <input type="radio" id="ans2" name="q1">
             <label for="ans2">Muzik</label>
         </div>
 
-        <div class="answerbox ans3">
-            <input type="radio" id="ans13" name="q1">
+        <div class="answerbox ans3" id="answerbox3">
+            <input type="radio" id="ans3" name="q1">
             <label for="ans3">Micik</label>
         </div>
 
-        <div class="answerbox ans4">
-            <input type="radio" id="ans14" name="q1">
+        <div class="answerbox ans4" id="answerbox4">
+            <input type="radio" id="ans4" name="q1">
             <label for="ans4">Mizuk</label>
         </div>
-        
-        <button>PushMEHARD!</button>
-    </form>
+    </div>
 
 
     <h2>En azert letezem hogy te ne is legyel</h2>
     <a href="http://csomi.me">Ez egy nagyon szep anyaoldal.</a>
-
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="index.js"></script>
 </body>
 </html>

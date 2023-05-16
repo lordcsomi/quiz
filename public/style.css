@@ -1,3 +1,49 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background-color: #f2f2f2;
+} 
+
+.nameform {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+.nameform h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 4ch;
+}
+.nameform input {
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid black;
+    font-size: 2ch;
+}
+
+.nameform button {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid black;
+    font-size: 2ch;
+    cursor: pointer;
+}
+.nameform button:hover {
+    outline: 1px solid black;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+.nameform p {
+    margin: 0;
+    padding: 0;
+    padding-top: 10px;
+    font-size: 1.5ch;
+}
+
 .kahoot {
     display: grid;
     grid-template:
@@ -9,17 +55,29 @@
     column-gap: 30px;
     grid-template-rows: 60px 200px 200px 60px;
     text-align: center;
+    margin: 15px;
+    height: 100vh;
 }
 
 .question {
     grid-area: p;
-    background-color: azure;
     font-size: 4ch;
     align-self: center;
     align-content: center;
 }
 .answerbox {
     border-radius: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid black;
+    font-size: 2.5ch;
+}
+.answerbox:hover {
+    outline: 1px solid black;
+    transform: translateY(-5px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 .ans1 {
     grid-area: a;
@@ -41,8 +99,3 @@ button {
     grid-area: but;
 }
 
-.nameform {
-    text-align: center;
-    margin: auto 0;
-    font-size: 10ch;
-}
