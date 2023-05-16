@@ -1,0 +1,23 @@
+{
+  "name": "quiz",
+  "version": "1.0.0",
+  "description": "quiz",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lordcsomi/quize.git"
+  },
+  "author": "Ádám Alice",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lordcsomi/quize/issues"
+  },
+  "homepage": "https://github.com/lordcsomi/quize#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "socket.io": "^4.6.1"
+  }
+}
