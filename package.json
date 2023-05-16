@@ -4,13 +4,14 @@
   "description": "quiz",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./server/index.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/lordcsomi/quize.git"
   },
-  "author": "Ádám Alice",
+  "author": "Ádám, Alice",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/lordcsomi/quize/issues"
