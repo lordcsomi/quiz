@@ -3,15 +3,20 @@ form {
     grid-template:
         "p p"
         "a b"
-        "c d";
+        "c d"
+        "but but";
     row-gap: 40px;
     column-gap: 30px;
-    
+    grid-template-rows: 60px 200px 200px 60px;
+    text-align: center;
 }
 
 .question {
     grid-area: p;
     background-color: azure;
+    font-size: 4ch;
+    align-self: center;
+    align-content: center;
 }
 .answerbox {
     border-radius: 20px;
@@ -31,4 +36,7 @@ form {
 .ans4 {
     grid-area: d;
     background-color: hotpink;
+}
+button {
+    grid-area: but;
 }
