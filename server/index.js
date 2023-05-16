@@ -14,3 +14,11 @@ server.listen(8080, () => {
     }
 );
 
+// socket.io server listens to our app
+io.on('connection', (socket) => {
+    console.log('user connected');
+
+    socket.on('disconnect', () => {
+        console.log('user disconnected');
+    });
+});
