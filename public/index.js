@@ -34,7 +34,10 @@ nameB.addEventListener('click', function() {
     if (name.length < 1) {
         alert('Please enter a name.');
         return;
-    }
+    } if (name.length > 15) {
+        alert('Please enter a shorter name.');
+        return;
+    };
 
     socket.emit('name', name);
 
