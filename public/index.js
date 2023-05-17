@@ -1,10 +1,16 @@
 // socket.io
 const socket = io();
 
-// get elements
+//--------- get elements
+// the name input
 const nameF = document.getElementById('nameform');
 const nameI = document.getElementById('nameput');
 const nameB = document.getElementById('namebutton');
+
+// the waiting screen
+const w = document.getElementById('waiting');
+w.style.display = 'none';
+const dw = document.getElementById('players'); // div for the players
 
 // the question
 const k = document.getElementById('kahoot');
@@ -24,6 +30,8 @@ const b4 = document.getElementById('answerbox4');
 
 // global variables
 let users = {}; // socket.id -> username, answers, score
+let players = []; // array of names of players
+let myName = ''; // name of the current player
 
 
 // event listeners for the name input
@@ -39,11 +47,9 @@ nameB.addEventListener('click', function() {
         return;
     };
 
-    socket.emit('name', name);
+    myName = name;
+    socket.emit('name', myName);
 
-    // next screen
-    nameF.style.display = 'none';
-    k.style.display = 'grid';
 });
     
 
@@ -72,4 +78,25 @@ b4.addEventListener('click', function() {
     a2.checked = false;
     a3.checked = false;
     a4.checked = true;
+});
+
+// socket.io client listens to the server
+socket.on('alert', (message) => {
+    alert(message);
+});
+
+socket.on('page', (page) => {
+    if (page == 'waiting') {
+        nameF.style.display = 'none';
+        w.style.display = 'flex';
+    } else if (page == 'question') {
+        k.style.display = 'none';
+        q.style.display = 'grid';
+    };
+});
+
+// disconnect
+socket.on('disconnect', () => {
+    console.log('disconnected');
+    location.reload();
 });
