@@ -120,6 +120,112 @@ socket.on('players', (p) => {
     pc.innerHTML = players.length + '/' + expectedPlayers + ' players';
 });
 
+socket.on('question', (nq, no) => {
+    // nq: the question 
+    // no: the options 4 options as an array of strings
+
+    // create the question and add it to id:kahoot based on this template:
+    /*
+        <p class="question">Template question.</p>
+        
+        <div class="answerbox ans1" id="answerbox1">
+            <input type="radio" id="ans1" name="q1">
+            <label for="ans1">ans1</label>
+        </div>
+
+        <div class="answerbox ans2" id="answerbox2">
+            <input type="radio" id="ans2" name="q1">
+            <label for="ans2">ans2</label>
+        </div>
+
+        <div class="answerbox ans3" id="answerbox3">
+            <input type="radio" id="ans3" name="q1">
+            <label for="ans3">ans3</label>
+        </div>
+
+        <div class="answerbox ans4" id="answerbox4">
+            <input type="radio" id="ans4" name="q1">
+            <label for="ans4">ans4</label>
+        </div>
+    */
+
+    // clear the question and answer boxes
+    k.innerHTML = '';
+
+    // create the question
+    let q = document.createElement('p');
+    q.classList.add('question');
+    q.innerHTML = '';
+    q.innerHTML = nq;
+
+    // create the answer boxes
+    let ab1 = document.createElement('div');
+    ab1.classList.add('answerbox');
+    ab1.classList.add('ans1');
+    ab1.id = 'answerbox1';
+    let ab2 = document.createElement('div');
+    ab2.classList.add('answerbox');
+    ab2.classList.add('ans2');
+    ab2.id = 'answerbox2';
+    let ab3 = document.createElement('div');
+    ab3.classList.add('answerbox');
+    ab3.classList.add('ans3');
+    ab3.id = 'answerbox3';
+    let ab4 = document.createElement('div');
+    ab4.classList.add('answerbox');
+    ab4.classList.add('ans4');
+    ab4.id = 'answerbox4';
+
+    // create the radio buttons
+    let r1 = document.createElement('input');
+    r1.type = 'radio';
+    r1.id = 'ans1';
+    r1.name = 'q1';
+    let r2 = document.createElement('input');
+    r2.type = 'radio';
+    r2.id = 'ans2';
+    r2.name = 'q1';
+    let r3 = document.createElement('input');
+    r3.type = 'radio';
+    r3.id = 'ans3';
+    r3.name = 'q1';
+    let r4 = document.createElement('input');
+    r4.type = 'radio';
+    r4.id = 'ans4';
+    r4.name = 'q1';
+
+    // create the labels
+    let l1 = document.createElement('label');
+    l1.for = 'ans1';
+    l1.innerHTML = no[0];
+    let l2 = document.createElement('label');
+    l2.for = 'ans2';
+    l2.innerHTML = no[1];
+    let l3 = document.createElement('label');
+    l3.for = 'ans3';
+    l3.innerHTML = no[2];
+    let l4 = document.createElement('label');
+    l4.for = 'ans4';
+    l4.innerHTML = no[3];
+
+    // add the radio buttons and labels to the answer boxes
+    ab1.appendChild(r1);
+    ab1.appendChild(l1);
+    ab2.appendChild(r2);
+    ab2.appendChild(l2);
+    ab3.appendChild(r3);
+    ab3.appendChild(l3);
+    ab4.appendChild(r4);
+    ab4.appendChild(l4);
+
+    // add the question and answer boxes to the page
+    k.appendChild(q);
+    k.appendChild(ab1);
+    k.appendChild(ab2);
+    k.appendChild(ab3);
+    k.appendChild(ab4);
+});
+
 
 // disconnect
 socket.on('disconnect', () => {

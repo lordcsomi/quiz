@@ -16,20 +16,20 @@ let port = 3000;
 let questions = [
     { 
     question: 'What is the capital of France?',
-    answers: ['Paris', 'London', 'Berlin', 'Madrid'],
+    options: ['Paris', 'London', 'Berlin', 'Madrid'],
     correct: 0,
     time : 10
     },
     {
     question: 'What is the capital of Spain?',
-    answers: ['Paris', 'London', 'Berlin', 'Madrid'],
+    options: ['Paris', 'London', 'Berlin', 'Madrid'],
     correct: 3,
     time : 10
 
     },
     {
     question: 'What is the capital of Germany?',
-    answers: ['Paris', 'London', 'Berlin', 'Madrid'],
+    options: ['Paris', 'London', 'Berlin', 'Madrid'],
     correct: 2,
     time : 10
     },
@@ -92,7 +92,7 @@ io.on('connection', (socket) => {
             name: name,
             socket: socket.id,
             answers: [],
-            score: 0,
+            score: [],
             state : 'waiting',
         };
 
@@ -151,6 +151,32 @@ io.on('connection', (socket) => {
                 // set the user state to question
                 users[user].state = 'question';
             }
-        }       
+        }    
+        quiz();   
+    });
+
+    socket.on('stop', () => {
+        // restart server
+        console.log('stopping server');
+        process.exit();
     });
 });
+
+function quiz() {
+    // loop through the questions
+    for (let i = 0; i < questions.length; i++) {
+        nq = questions[i].question;
+        no = questions[i].options;
+        nc = questions[i].correct;
+        // if the player state is question
+        for (let user in users) {
+            if (users[user].state == 'question') {
+                // send the question to the user
+                io.to(users[user].socket).emit('question', nq, no);
+                console.log('question sent to ' + users[user].name);
+            }
+        }
+        // wait for the answers
+    }
+    //end();
+}
