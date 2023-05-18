@@ -155,11 +155,11 @@ io.on('connection', (socket) => {
         quiz();   
     });
 
-    socket.on('stop', () => {
+    /*socket.on('stop', () => {
         // restart server
         console.log('stopping server');
         process.exit();
-    });
+    }); */
 });
 
 function quiz() {
