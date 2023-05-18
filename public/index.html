@@ -18,20 +18,15 @@
         <p>Nem, nincsen név ellenőrzés szóval csak okosan!</p>
     </div>
     <div class="waiting" id="waiting">
-        <h1>Várakozás a többiekre...</h1> <!-- ALICE pls do a ... animation-->
+        <div class="playercounter" id="playercounter">
+            <p id="playercount">10/0</p>
+        </div>
+        <h1>Várakozás a többiekre...</h1> <!-- ALICE pls do a ... animation (. => .. =>... repeat)-->
         <div class="players" id="players">
-            <p class="player" id="player1">Player 1</p>
-            <p class="player" id="player2">Player 2</p>
-            <p class="player" id="player3">Player 3</p>
-            <p class="player" id="player4">Player 4</p>
-            <p class="player" id="player5">Player 5</p>
             <!-- Add more <p> elements for additional players -->
-            <p class="player" id="player6">Player 6</p>
-            <p class="player" id="player7">Player 7</p>
-            <p class="player" id="player8">Player 8</p>
-            <p class="player" id="player9">Player 9</p>
-            <p class="player" id="player10">Player 10</p>
-            
+            <!--
+            <p class="player" id="player1">Player 1</p>
+            <p class="player" id="player2">Player 2</p> -->
         </div>
     </div>
     <div class="kahoot" id="kahoot">
@@ -62,6 +57,6 @@
     <h2>En azert letezem hogy te ne is legyel</h2>
     <a href="http://csomi.me/portfolio" target="_blank">Ez egy nagyon szep anyaoldal.</a>
     <script src="/socket.io/socket.io.js"></script>
-    <script src="index.js"></script>
+    <script src="./index.js"></script>
 </body>
 </html>

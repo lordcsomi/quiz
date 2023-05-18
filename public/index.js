@@ -11,6 +11,7 @@ const nameB = document.getElementById('namebutton');
 const w = document.getElementById('waiting');
 w.style.display = 'none';
 const dw = document.getElementById('players'); // div for the players
+const pc = document.getElementById('playercounter'); // player counter: has a p element inside 10/x players
 
 // the question
 const k = document.getElementById('kahoot');
@@ -29,9 +30,9 @@ const b3 = document.getElementById('answerbox3');
 const b4 = document.getElementById('answerbox4');
 
 // global variables
-let users = {}; // socket.id -> username, answers, score
 let players = []; // array of names of players
 let myName = ''; // name of the current player
+let expectedPlayers = 0; // number of players expected to join
 
 
 // event listeners for the name input
@@ -90,10 +91,35 @@ socket.on('page', (page) => {
         nameF.style.display = 'none';
         w.style.display = 'flex';
     } else if (page == 'question') {
-        k.style.display = 'none';
-        q.style.display = 'grid';
+        w.style.display = 'none';
+        k.style.display = 'grid';
     };
 });
+
+socket.on('expectedPlayers', (ep) => {
+    expectedPlayers = ep;
+    pc.innerHTML = players.length + '/' + expectedPlayers + ' players';
+});
+
+socket.on('players', (p) => {
+    players = p;
+    dw.innerHTML = '';
+
+    for (let i = 0; i < players.length; i++) {
+        let p = document.createElement('p');
+        p.innerHTML = players[i];
+        p.classList.add('player');
+
+        if (players[i] == myName) {
+            p.classList.add('me');
+        }
+
+        dw.appendChild(p);
+    };
+
+    pc.innerHTML = players.length + '/' + expectedPlayers + ' players';
+});
+
 
 // disconnect
 socket.on('disconnect', () => {

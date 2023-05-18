@@ -46,6 +46,17 @@ body {
     font-size: 1.5ch;
 }
 
+.playercounter {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    /*border: 1px solid black;*/
+    font-size: 2ch;
+}
+
 .waiting {
     display: flex;
     flex-direction: column;
@@ -68,6 +79,9 @@ body {
     padding: 10px;
     border: 1px solid black;
     border-radius: 5px;
+}
+.me {
+    background-color: #fed766;
 }
 .player::before {
     content: "👤";

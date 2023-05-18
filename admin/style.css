@@ -1,7 +1,0 @@
-.player:hover {
-    outline: 1px solid black;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-
-    /* Admin can kick player */
-    text-decoration: line-through;
-}

@@ -8,5 +8,35 @@
 </head>
 <body>
     <h1>Ez az admin felület</h1>
+    <!-- change the expectedPlayers -->
+    <input type="number" id="expectedPlayers" placeholder="14">
+    <button id="setExpectedPlayers">Set expected players</button>
+    <button id="start">Start Quiz</button>
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #fff;
+        }
+    </style>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        // get elements
+        const ie = document.getElementById('expectedPlayers'); // input field
+        const bs = document.getElementById('setExpectedPlayers'); // button
+        const bStart = document.getElementById('start'); // button
+
+        // socket.io
+        const socket = io();
+
+        // set expected players
+        bs.addEventListener('click', () => {
+            socket.emit('setExpectedPlayers', ie.value);
+        });
+
+        // start quiz
+        bStart.addEventListener('click', () => {
+            socket.emit('startQuiz');
+        });
+    </script>
 </body>
 </html>
