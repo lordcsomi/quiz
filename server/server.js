@@ -4,13 +4,13 @@ const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 const path = require("path");
-//const os = require('os');
+const os = require('os');
 
 // global variables
 let version = '0.2.0';
 let environment = 'development';
 let host = 'localhost';
-let port = 3000;
+let port = 8080;
 
 // questions
 let questions = [
@@ -53,14 +53,13 @@ app.get('/admin', (req, res) => {
 
 // start the express web server listening on 8080
 server.listen(port, function () {
-    /*const ip = Object.values(os.networkInterfaces())
+    const ip = Object.values(os.networkInterfaces())
       .flatMap((iface) => iface.filter((info) => info.family === 'IPv4' && !info.internal))
       .map((info) => info.address)[0];
       console.log(`Server version: ${version}`);
       console.log(`Server environment: ${environment}`);
       console.log(`Server listening on http://${host}:${port}`);
-      console.log(`Server listening on http://${ip}:3000`);
-      */
+      console.log(`Server listening on http://${ip}:8080`);
   });
 
 // socket.io server listens to our app
