@@ -162,21 +162,65 @@ io.on('connection', (socket) => {
     }); */
 });
 
-function quiz() {
-    // loop through the questions
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+  
+async function quiz() {
+    // Loop through the questions
     for (let i = 0; i < questions.length; i++) {
-        nq = questions[i].question;
-        no = questions[i].options;
-        nc = questions[i].correct;
-        // if the player state is question
-        for (let user in users) {
-            if (users[user].state == 'question') {
-                // send the question to the user
-                io.to(users[user].socket).emit('question', nq, no);
+        const currentQuestion = questions[i].question;
+        const currentOptions = questions[i].options;
+        const correctAnswer = questions[i].correct;
+        const timeLimit = questions[i].time;
+
+        console.log('\n');
+        console.log('question: ' + currentQuestion);
+        console.log('options: ' + currentOptions);
+        console.log('correct: ' + correctAnswer);
+        console.log('time: ' + timeLimit);
+
+        // Send the question to all users in the "question" state
+        for (const user in users) {
+            if (users[user].state === 'question') {
+                io.to(users[user].socket).emit('question', currentQuestion, currentOptions);
                 console.log('question sent to ' + users[user].name);
             }
         }
-        // wait for the answers
+
+        // Wait for all users to submit their answers or until the time limit is reached
+        const answersPromise = new Promise((resolve) => {
+            let answeredCount = 0;
+
+            const checkAnswers = setInterval(() => {
+            let allAnswered = true;
+
+            // Check if all users have submitted their answers
+            for (const user in users) {
+                if (users[user].state === 'question' && users[user].answers.length < i + 1) {
+                    allAnswered = false;
+                    break;
+                }
+            }
+
+            // If all users have answered or the time limit is reached, resolve the promise
+            if (allAnswered || answeredCount >= timeLimit) {
+              clearInterval(checkAnswers);
+              resolve();
+            }
+
+            answeredCount++;
+          }, 1000);
+        });
+
+        // Wait for the promise to resolve or until the time limit is reached
+        await Promise.race([answersPromise, sleep(timeLimit * 1000)]);
     }
-    //end();
+  
+    // End the quiz and show the results
+    end();
 }
+
+function end() { // End the quiz and show the results
+    console.log('ending quiz');
+};
