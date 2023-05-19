@@ -33,8 +33,21 @@ let questions = [
     correct: 2,
     time : 10
     },
+    {
+    question: 'What is the capital of England?',
+    options: ['Paris', 'London', 'Berlin', 'Madrid'],
+    correct: 1,
+    time : 10
+    },
+    {
+    question: 'Is this is the end?',
+    options: ['Yes', 'NO', 'YESS', 'NO SIR'],
+    correct: 3,
+    time : 10
+    },
 ];
-let currentQuestion = 0;
+let questionNumber = 0;
+let questionTime = Date.now();
 
 let users = {}; // socket.id -> username, answers, score
 let players = []; // array of names of players
@@ -109,6 +122,24 @@ io.on('connection', (socket) => {
         console.log('new player: ' + name);
     });
 
+    socket.on('answer', (answer) => {
+        // check if the client is in the users dictionary
+        //console.log('recieved: ' + answer);
+        if (socket.id in users) {
+            // check if the user is in the "question" state
+            //console.log('is a user');
+            if (users[socket.id].state == 'question') {
+                // check if the user has already answered the question
+                //console.log('is in question');
+                if (users[socket.id].answers.length < questionNumber + 1) {
+                    // add the answer to the user's answers
+                    //console.log('has not answered');
+                    users[socket.id].answers.push(answer);
+                    console.log(users[socket.id].name + ' answered: ' + answer + ' in ' + (Date.now() - questionTime) + 'ms');
+                }
+            }
+        }
+    });
 
     socket.on('disconnect', () => {
         // check if the client is in the users dictionary
@@ -170,6 +201,8 @@ async function quiz() {
     // Loop through the questions
     for (let i = 0; i < questions.length; i++) {
         const currentQuestion = questions[i].question;
+        questionNumber = i;
+        questionTime = Date.now();
         const currentOptions = questions[i].options;
         const correctAnswer = questions[i].correct;
         const timeLimit = questions[i].time;
@@ -178,15 +211,16 @@ async function quiz() {
         console.log('question: ' + currentQuestion);
         console.log('options: ' + currentOptions);
         console.log('correct: ' + correctAnswer);
-        console.log('time: ' + timeLimit);
+        console.log('time: ' + timeLimit + '\n');
 
         // Send the question to all users in the "question" state
         for (const user in users) {
             if (users[user].state === 'question') {
-                io.to(users[user].socket).emit('question', currentQuestion, currentOptions);
-                console.log('question sent to ' + users[user].name);
+                io.to(users[user].socket).emit('question', currentQuestion, currentOptions, timeLimit);
+                //console.log('question sent to ' + users[user].name);
             }
         }
+        console.log('question sent to all users');
 
         // Wait for all users to submit their answers or until the time limit is reached
         const answersPromise = new Promise((resolve) => {
@@ -215,6 +249,15 @@ async function quiz() {
 
         // Wait for the promise to resolve or until the time limit is reached
         await Promise.race([answersPromise, sleep(timeLimit * 1000)]);
+
+        // if one of the users has not answered after the time limit is reached
+        for (const user in users) {
+            if (users[user].state === 'question' && users[user].answers.length < i + 1) {
+                users[user].answers.push(-1);
+                console.log(users[user].name + ' did not answer in time');
+            }
+        }
+
     }
   
     // End the quiz and show the results
@@ -223,4 +266,10 @@ async function quiz() {
 
 function end() { // End the quiz and show the results
     console.log('ending quiz');
+
+    // for now log all the users and their answers
+    for (const user in users) {
+        console.log(users[user].name + ': ' + users[user].answers);
+    }
+
 };

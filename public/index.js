@@ -18,21 +18,22 @@ const k = document.getElementById('kahoot');
 k.style.display = 'none';
 
 // the question (input)
-const a1 = document.getElementById('ans1');
-const a2 = document.getElementById('ans2');
-const a3 = document.getElementById('ans3');
-const a4 = document.getElementById('ans4');
+let a1 = document.getElementById('ans1');
+let a2 = document.getElementById('ans2');
+let a3 = document.getElementById('ans3');
+let a4 = document.getElementById('ans4');
 
 // for clicking on the answer boxes
-const b1 = document.getElementById('answerbox1');
-const b2 = document.getElementById('answerbox2');
-const b3 = document.getElementById('answerbox3');
-const b4 = document.getElementById('answerbox4');
+let b1 = document.getElementById('answerbox1');
+let b2 = document.getElementById('answerbox2');
+let b3 = document.getElementById('answerbox3');
+let b4 = document.getElementById('answerbox4');
 
 // global variables
 let players = []; // array of names of players
 let myName = ''; // name of the current player
 let expectedPlayers = 0; // number of players expected to join
+let reaminingTime = 0; // remaining time for the question
 
 
 // event listeners for the name input
@@ -61,24 +62,28 @@ b1.addEventListener('click', function() {
     a2.checked = false;
     a3.checked = false;
     a4.checked = false;
+    console.log('a1');
 });
 b2.addEventListener('click', function() {
     a1.checked = false;
     a2.checked = true;
     a3.checked = false;
     a4.checked = false;
+    console.log('a2');
 });
 b3.addEventListener('click', function() {
     a1.checked = false;
     a2.checked = false;
     a3.checked = true;
     a4.checked = false;
+    console.log('a3');
 });
 b4.addEventListener('click', function() {
     a1.checked = false;
     a2.checked = false;
     a3.checked = false;
     a4.checked = true;
+    console.log('a4');
 });
 
 // socket.io client listens to the server
@@ -120,35 +125,19 @@ socket.on('players', (p) => {
     pc.innerHTML = players.length + '/' + expectedPlayers + ' players';
 });
 
-socket.on('question', (nq, no) => {
-    // nq: the question 
-    // no: the options 4 options as an array of strings
-
-    // create the question and add it to id:kahoot based on this template:
-    /*
-        <p class="question">Template question.</p>
-        
-        <div class="answerbox ans1" id="answerbox1">
-            <input type="radio" id="ans1" name="q1">
-            <label for="ans1">ans1</label>
-        </div>
-
-        <div class="answerbox ans2" id="answerbox2">
-            <input type="radio" id="ans2" name="q1">
-            <label for="ans2">ans2</label>
-        </div>
-
-        <div class="answerbox ans3" id="answerbox3">
-            <input type="radio" id="ans3" name="q1">
-            <label for="ans3">ans3</label>
-        </div>
-
-        <div class="answerbox ans4" id="answerbox4">
-            <input type="radio" id="ans4" name="q1">
-            <label for="ans4">ans4</label>
-        </div>
-    */
-
+socket.on('question', (nq, no, tl) => {
+    // set up the timer
+    reaminingTime = tl;
+    
+    // for now only conslo log the reamining time every second
+    let timer = setInterval(function() {
+        console.log(reaminingTime);
+        reaminingTime--;
+        if (reaminingTime < 1) {
+            clearInterval(timer);
+        };
+    }, 1000);
+    
     // clear the question and answer boxes
     k.innerHTML = '';
 
@@ -224,6 +213,52 @@ socket.on('question', (nq, no) => {
     k.appendChild(ab2);
     k.appendChild(ab3);
     k.appendChild(ab4);
+
+    // get the answer boxes
+    b1 = document.getElementById('answerbox1');
+    b2 = document.getElementById('answerbox2');
+    b3 = document.getElementById('answerbox3');
+    b4 = document.getElementById('answerbox4');
+
+    // get the radio buttons
+    a1 = document.getElementById('ans1');
+    a2 = document.getElementById('ans2');
+    a3 = document.getElementById('ans3');
+    a4 = document.getElementById('ans4');
+
+    // event listeners for the multiple choice answers
+    b1.addEventListener('click', function() {
+        a1.checked = true;
+        a2.checked = false;
+        a3.checked = false;
+        a4.checked = false;
+        socket.emit('answer', 0);
+        console.log('a1');
+    });
+    b2.addEventListener('click', function() {
+        a1.checked = false;
+        a2.checked = true;
+        a3.checked = false;
+        a4.checked = false;
+        socket.emit('answer', 1);
+        console.log('a2');
+    });
+    b3.addEventListener('click', function() {
+        a1.checked = false;
+        a2.checked = false;
+        a3.checked = true;
+        a4.checked = false;
+        socket.emit('answer', 2);
+        console.log('a3');
+    });
+    b4.addEventListener('click', function() {
+        a1.checked = false;
+        a2.checked = false;
+        a3.checked = false;
+        a4.checked = true;
+        socket.emit('answer', 3);
+        console.log('a4');
+    });
 });
 
 
