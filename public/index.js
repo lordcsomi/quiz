@@ -50,6 +50,10 @@ const p1 = document.getElementById('p1');
 const p2 = document.getElementById('p2');
 const p3 = document.getElementById('p3');
 
+// end
+const e = document.getElementById('end');
+
+
 // --------- variables ---------//
 let players = []; // array of names of players
 let myName = ''; // name of the current player
@@ -150,6 +154,24 @@ socket.on('page', (page) => {
         r.style.display = 'none';
         k.style.display = 'none';
         l.style.display = 'flex';
+        p.style.display = 'none';
+    } else if (page == 'podium') {
+        s.style.display = 'none';
+        c.style.display = 'none';
+        r.style.display = 'none';
+        k.style.display = 'none';
+        l.style.display = 'none';
+        p.style.display = 'flex';
+    } else if (page == 'end') {
+        s.style.display = 'none';
+        c.style.display = 'none';
+        r.style.display = 'none';
+        k.style.display = 'none';
+        l.style.display = 'none';
+        p.style.display = 'none';
+        e.style.display = 'flex';
+    } else {
+        console.log('page not found');
     }
 });
 
@@ -352,6 +374,42 @@ socket.on('leaderboard', (leaaderboard) => {
         p.innerHTML = leaaderboard[i].name + ' <span class="topscore">' + leaaderboard[i].score + '</span>';
         lb.appendChild(p);
     };
+});
+
+socket.on('podium', (podium) => {
+    console.log('podium');
+    console.log(podium);
+    // podium is an array of objects {name: name, score: score}
+    /*
+    <div class="waiting" id="podium">
+        <h1>Podium</h1>
+        <div class="top" id="p1"></div>
+        <div class="top" id="p2"></div>
+        <div class="top" id="p3"></div>
+    </div>
+    */
+
+    // clear the podium
+    p1.innerHTML = '';
+    p2.innerHTML = '';
+    p3.innerHTML = '';
+
+    // create the podium
+    let p1p = document.createElement('p');
+    p1p.classList.add('topplayer');
+    p1p.innerHTML = podium[0].name + ' <span class="topscore">' + podium[0].score + '</span>';
+    p1.appendChild(p1p);
+
+    let p2p = document.createElement('p');
+    p2p.classList.add('topplayer');
+    p2p.innerHTML = podium[1].name + ' <span class="topscore">' + podium[1].score + '</span>';
+    p2.appendChild(p2p);
+
+    let p3p = document.createElement('p');
+    p3p.classList.add('topplayer');
+    p3p.innerHTML = podium[2].name + ' <span class="topscore">' + podium[2].score + '</span>';
+    p3.appendChild(p3p);
+
 });
 
 // disconnect

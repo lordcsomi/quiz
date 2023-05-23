@@ -6,6 +6,7 @@ body {
     color: #000;
 } 
 
+/* ------name choosing------ */
 .nameform {
     display: flex;
     flex-direction: column;
@@ -46,6 +47,7 @@ body {
     font-size: 1.5ch;
 }
 
+/* ------waiting room------ */
 .playercounter {
     position: absolute;
     top: 0;
@@ -92,6 +94,7 @@ body {
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 
+/* ------game------ */
 .kahoot {
     display: grid;
     grid-template:
@@ -147,3 +150,85 @@ button {
     grid-area: but;
 }
 
+/* ------correct------ */
+#correct {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #abcc60;
+}
+
+/* ------wrong------ */
+#wrong {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: red;
+}
+
+/* ------leaderboard------ */
+
+
+
+/* ------podium------ */
+/* 
+<div class="waiting" id="podium">
+    <h1>Podium</h1>
+    <div class="top" id="p1">Csomi</div> // middle one
+    <div class="top" id="p2">Anna</div> // left one
+    <div class="top" id="p3">Isti</div> // right one
+</div>*/
+
+#podium {
+    text-align: center;
+  }
+  
+  #podium h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .top {
+    position: relative;
+    display: inline-block;
+    width: 100px;
+    height: 200px;
+    margin: 0 10px;
+    text-align: center;
+    font-size: 18px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+  }
+  
+  #p1 {
+    background-color: gold;
+  }
+  
+  #p2 {
+    background-color: silver;
+  }
+  
+  #p3 {
+    background-color: #cd7f32; /* bronze */
+  }
+  
+  .name {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    right: 0;
+    font-weight: bold;
+  }
+  
+  .score {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+  }
+
+/* ------end------ */

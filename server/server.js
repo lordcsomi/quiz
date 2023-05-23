@@ -390,13 +390,43 @@ async function quiz() {
     end();
 }
 
-function end() { // End the quiz and show the results
+async function end() { // End the quiz and show the results
     console.log('ending quiz');
+
+    // create podium 
+    // is the same as leaderboard 
+    leadrboard = []; // array of objects {name, score} in descending order
+    for (const user in users) {
+        if (users[user].ingame){
+            // add up the user's score
+            let score = 0;
+            for (let j = 0; j < users[user].score.length; j++) {
+                score += users[user].score[j];
+            }
+            // add the user to the leaderboard
+            leadrboard.push({name: users[user].name, score: score});
+        }
+    }
+    leadrboard.sort((a, b) => (a.score < b.score) ? 1 : -1);
+    console.log(leadrboard);
 
     // send users to podium page
     for (const user in users) {
         if (users[user].ingame) {
             io.to(users[user].socket).emit('page', 'podium');
+            io.to(users[user].socket).emit('podium', leadrboard);
+        }
+    }
+
+    // wait for 5 seconds
+    await sleep(30000);
+
+    // send users to end page
+    for (const user in users) {
+        if (users[user].ingame) {
+            io.to(users[user].socket).emit('page', 'end');
+            users[user].state = 'end';
+            users[user].ingame = false;
         }
     }
 
