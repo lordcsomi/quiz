@@ -1,7 +1,7 @@
 // socket.io
 const socket = io();
 
-//--------- get elements
+//--------- get elements from the html ---------//
 // the name input
 const nameF = document.getElementById('nameform');
 const nameI = document.getElementById('nameput');
@@ -13,7 +13,7 @@ w.style.display = 'none';
 const dw = document.getElementById('players'); // div for the players
 const pc = document.getElementById('playercounter'); // player counter: has a p element inside 10/x players
 
-// the question
+// the question 
 const k = document.getElementById('kahoot');
 k.style.display = 'none';
 
@@ -29,7 +29,28 @@ let b2 = document.getElementById('answerbox2');
 let b3 = document.getElementById('answerbox3');
 let b4 = document.getElementById('answerbox4');
 
-// global variables
+// for waiting for score
+const s = document.getElementById('score');
+
+// correct
+const c = document.getElementById('correct');
+const cp = document.getElementById('yscore'); // correct points
+
+// wrong
+const r = document.getElementById('wrong');
+const rp = document.getElementById('nscore'); // wrong points
+
+// leaderboard
+const l = document.getElementById('leaderboard');
+const lb = document.getElementById('leaderboardlist'); // leaderboard list
+
+// podium
+const p = document.getElementById('podium');
+const p1 = document.getElementById('p1');
+const p2 = document.getElementById('p2');
+const p3 = document.getElementById('p3');
+
+// --------- variables ---------//
 let players = []; // array of names of players
 let myName = ''; // name of the current player
 let expectedPlayers = 0; // number of players expected to join
@@ -95,10 +116,41 @@ socket.on('page', (page) => {
     if (page == 'waiting') {
         nameF.style.display = 'none';
         w.style.display = 'flex';
+        k.style.display = 'none';
+        s.style.display = 'none';
+        c.style.display = 'none';
+        r.style.display = 'none';
+        l.style.display = 'none';
     } else if (page == 'question') {
         w.style.display = 'none';
         k.style.display = 'grid';
-    };
+        s.style.display = 'none';
+        c.style.display = 'none';
+        r.style.display = 'none';
+        l.style.display = 'none';
+    } else if (page == 'waitforscore') {
+        k.style.display = 'none';
+        s.style.display = 'flex';
+        c.style.display = 'none';
+        r.style.display = 'none';
+        l.style.display = 'none';
+    } else if (page == 'correct') {
+        s.style.display = 'none';
+        c.style.display = 'flex';
+        k.style.display = 'none';
+        l.style.display = 'none';
+    } else if (page == 'wrong') {
+        s.style.display = 'none';
+        r.style.display = 'flex';
+        k.style.display = 'none';
+        l.style.display = 'none';
+    } else if (page == 'leaderboard') {
+        s.style.display = 'none';
+        c.style.display = 'none';
+        r.style.display = 'none';
+        k.style.display = 'none';
+        l.style.display = 'flex';
+    }
 });
 
 socket.on('expectedPlayers', (ep) => {
@@ -126,6 +178,12 @@ socket.on('players', (p) => {
 });
 
 socket.on('question', (nq, no, tl) => {
+    /* testing score system
+    after 5 seconds send the answer a1
+    setTimeout(function() {
+        socket.emit('answer', 0);
+    }, 5000); */
+
     // set up the timer
     reaminingTime = tl;
     
@@ -234,6 +292,7 @@ socket.on('question', (nq, no, tl) => {
         a4.checked = false;
         socket.emit('answer', 0);
         console.log('a1');
+        clearInterval(timer);
     });
     b2.addEventListener('click', function() {
         a1.checked = false;
@@ -242,6 +301,7 @@ socket.on('question', (nq, no, tl) => {
         a4.checked = false;
         socket.emit('answer', 1);
         console.log('a2');
+        clearInterval(timer);
     });
     b3.addEventListener('click', function() {
         a1.checked = false;
@@ -250,6 +310,7 @@ socket.on('question', (nq, no, tl) => {
         a4.checked = false;
         socket.emit('answer', 2);
         console.log('a3');
+        clearInterval(timer);
     });
     b4.addEventListener('click', function() {
         a1.checked = false;
@@ -258,9 +319,40 @@ socket.on('question', (nq, no, tl) => {
         a4.checked = true;
         socket.emit('answer', 3);
         console.log('a4');
+        clearInterval(timer);
     });
 });
 
+socket.on('correct', (score) => {
+    cp.innerHTML = score;
+});
+
+socket.on('wrong', (score) => {
+    rp.innerHTML = score;
+});
+
+socket.on('leaderboard', (leaaderboard) => {
+    console.log('leaderboard');
+    // lb is a sorted in descending order array of objects {name: name, score: score}
+    /*
+    <p class="topplayer">Player 1 <span class="topscore">1000</span></p>
+    <p class="topplayer">Player 2 <span class="topscore">1000</span></p> 
+    */
+
+    // clear the leaderboard
+    lb.innerHTML = '';
+
+    // create the leaderboard
+    for (let i = 0; i < leaaderboard.length; i++) {
+        let p = document.createElement('p');
+        p.classList.add('topplayer');
+        if (leaaderboard[i].name == myName) {
+            p.classList.add('me');
+        }
+        p.innerHTML = leaaderboard[i].name + ' <span class="topscore">' + leaaderboard[i].score + '</span>';
+        lb.appendChild(p);
+    };
+});
 
 // disconnect
 socket.on('disconnect', () => {

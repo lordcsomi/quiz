@@ -14,6 +14,7 @@ let port = 8080;
 
 // questions
 let questions = [
+    /*
     { 
     question: 'What is the capital of France?',
     options: ['Paris', 'London', 'Berlin', 'Madrid'],
@@ -38,20 +39,56 @@ let questions = [
     options: ['Paris', 'London', 'Berlin', 'Madrid'],
     correct: 1,
     time : 10
-    },
+    }, */
     {
     question: 'Is this is the end?',
     options: ['Yes', 'NO', 'YESS', 'NO SIR'],
     correct: 3,
     time : 10
     },
+    {
+    question: 'Correct point?',
+    options: ['900', '800', '700', '600'],
+    correct: 0,
+    time : 10
+    },
+    {
+    question: 'Correct point?',
+    options: ['900', '800', '700', '600'],
+    correct: 0,
+    time : 20,
+    },
+    {
+    question: 'Correct point?',
+    options: ['900', '800', '700', '600'],
+    correct: 0,
+    time : 100
+    },
 ];
 let questionNumber = 0;
 let questionTime = Date.now();
+const maxPointPerQuestion = 1000;
 
 let users = {}; // socket.id -> username, answers, score
 let players = []; // array of names of players
 let expectedPlayers = 14; // number of players expected to join
+
+let exampleUsers = {
+    'socket1': {
+        name: 'user1',
+        socket: 'socket1',
+        answers: [0, 1, 2, 3, 0],
+        score: [1000, 1000, 1000, 1000, 1000],
+        state : 'end',
+    },
+    'socket2': {
+        name: 'user2',
+        socket: 'socket2',
+        answers: [0, 1, 2, 3, 0],
+        score: [1000, 1000, 1000, 1000, 1000],
+        state : 'end',
+    },
+};
 
 
 // serve static files from the public directory
@@ -107,6 +144,7 @@ io.on('connection', (socket) => {
             answers: [],
             score: [],
             state : 'waiting',
+            ingame : false,
         };
 
         // send the player to the next screen
@@ -136,6 +174,20 @@ io.on('connection', (socket) => {
                     //console.log('has not answered');
                     users[socket.id].answers.push(answer);
                     console.log(users[socket.id].name + ' answered: ' + answer + ' in ' + (Date.now() - questionTime) + 'ms');
+
+                    // calculate the score
+                    let score = 0;
+                    if (answer == questions[questionNumber].correct) {
+                        // give the user points based on how fast they answered the question
+                        score = Math.round(maxPointPerQuestion - (maxPointPerQuestion * (Date.now() - questionTime) / (questions[questionNumber].time * 1000)));
+                    }
+                    // add the score to the user's score
+                    users[socket.id].score.push(score);
+                    console.log(users[socket.id].name + ' scored: ' + score);
+
+                    // send the user to the sent answer page
+                    io.to(users[socket.id].socket).emit('page', 'waitforscore');
+                    users[socket.id].state = 'waitforscore';
                 }
             }
         }
@@ -179,8 +231,9 @@ io.on('connection', (socket) => {
                 // send the user to the question page
                 io.to(users[user].socket).emit('page', 'question');
 
-                // set the user state to question
+                // set the user to question
                 users[user].state = 'question';
+                users[user].ingame = true;
             }
         }    
         quiz();   
@@ -200,6 +253,7 @@ function sleep(ms) {
 async function quiz() {
     // Loop through the questions
     for (let i = 0; i < questions.length; i++) {
+        // if there are no users in game
         const currentQuestion = questions[i].question;
         questionNumber = i;
         questionTime = Date.now();
@@ -254,10 +308,82 @@ async function quiz() {
         for (const user in users) {
             if (users[user].state === 'question' && users[user].answers.length < i + 1) {
                 users[user].answers.push(-1);
+                users[user].score.push(0);
+                users[user].state = 'waitforscore';
                 console.log(users[user].name + ' did not answer in time');
             }
         }
 
+        // every user has answered or the time limit is reached ---------------------------------------------
+
+        // send out the corrct answer to all users in the "waitforscore" state
+        for (const user in users) {
+            if (users[user].state === 'waitforscore') {
+                io.to(users[user].socket).emit('correctAnswer', correctAnswer);
+            }
+        }
+
+        // Send if the user's answer was correct or not to all users in the "waitforscore" state
+        for (const user in users) {
+            if (users[user].state === 'waitforscore') {
+                if (users[user].score[i] > 0) {
+                    io.to(users[user].socket).emit('correct', users[user].score[i]);
+                    io.to(users[user].socket).emit('page', 'correct');
+                } else {
+                    io.to(users[user].socket).emit('wrong', users[user].score[i]);
+                    io.to(users[user].socket).emit('page', 'wrong');
+                }
+            }
+        }
+
+        // wait for 5 seconds
+        await sleep(5000);
+
+        // if last round
+        if (i == questions.length - 1) {
+            break;
+        }
+
+        // create the leaderboard the top 5 users and their scores
+        leadrboard = []; // array of objects {name, score} in descending order
+        for (const user in users) {
+            if (users[user].ingame){
+                // add up the user's score
+                let score = 0;
+                for (let j = 0; j < users[user].score.length; j++) {
+                    score += users[user].score[j];
+                }
+                // add the user to the leaderboard
+                leadrboard.push({name: users[user].name, score: score});
+            }
+        }
+        leadrboard.sort((a, b) => (a.score < b.score) ? 1 : -1);
+        console.log(leadrboard);
+
+
+        
+        // send the user to the leaderboard page
+        for (const user in users) {
+            if (users[user].state === 'waitforscore') {
+                io.to(users[user].socket).emit('page', 'leaderboard');
+                io.to(users[user].socket).emit('leaderboard', leadrboard);
+                users[user].state = 'leaderboard';
+                console.log(users[user].name + ' sent to leaderboard');
+            }
+        }
+
+        // wait for 5 seconds
+        await sleep(5000);
+
+        // set every user who is in game to question
+        for (const user in users) {
+            if (users[user].ingame) {
+                users[user].state = 'question';
+                io.to(users[user].socket).emit('page', 'question');
+            }
+        }
+
+        console.log('next question --------------------');
     }
   
     // End the quiz and show the results
@@ -267,9 +393,11 @@ async function quiz() {
 function end() { // End the quiz and show the results
     console.log('ending quiz');
 
-    // for now log all the users and their answers
+    // send users to podium page
     for (const user in users) {
-        console.log(users[user].name + ': ' + users[user].answers);
+        if (users[user].ingame) {
+            io.to(users[user].socket).emit('page', 'podium');
+        }
     }
 
 };
