@@ -152,7 +152,6 @@ button {
 
 /* ------correct------ */
 #correct {
-    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -162,7 +161,6 @@ button {
 
 /* ------wrong------ */
 #wrong {
-    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
