@@ -14,7 +14,6 @@ let port = 8080;
 
 // questions
 let questions = [
-    /*
     { 
     question: 'What is the capital of France?',
     options: ['Paris', 'London', 'Berlin', 'Madrid'],
@@ -39,7 +38,7 @@ let questions = [
     options: ['Paris', 'London', 'Berlin', 'Madrid'],
     correct: 1,
     time : 10
-    }, */
+    },
     {
     question: 'Is this is the end?',
     options: ['Yes', 'NO', 'YESS', 'NO SIR'],
@@ -47,22 +46,10 @@ let questions = [
     time : 10
     },
     {
-    question: 'Correct point?',
-    options: ['900', '800', '700', '600'],
-    correct: 0,
-    time : 10
-    },
-    {
-    question: 'Correct point?',
-    options: ['900', '800', '700', '600'],
-    correct: 0,
-    time : 20,
-    },
-    {
-    question: 'Correct point?',
-    options: ['900', '800', '700', '600'],
-    correct: 0,
-    time : 100
+    question: 'Which is the correct one?',
+    options: ['Muzik', 'Miczik', 'Muzik', 'Miczik'],
+    correct: 1,
+    time : 15
     },
 ];
 let questionNumber = 0;
