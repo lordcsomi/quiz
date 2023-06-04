@@ -11,6 +11,7 @@ let version = '0.2.0';
 let environment = 'development';
 let host = 'localhost';
 let port = 8080;
+let gameRunning = false;
 
 // questions
 let questions = [
@@ -210,6 +211,11 @@ io.on('connection', (socket) => {
 
     socket.on('startQuiz', () => {
         console.log('starting quiz');
+        if (gameRunning) {
+            console.log('game already running');
+            return;
+        }
+        gameRunning = true;
 
         // for every user if the user state is waiting
         for (let user in users) {

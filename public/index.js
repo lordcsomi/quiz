@@ -118,6 +118,7 @@ socket.on('alert', (message) => {
 
 socket.on('page', (page) => {
     if (page == 'waiting') {
+        console.log('waiting');
         nameF.style.display = 'none';
         w.style.display = 'flex';
         k.style.display = 'none';
@@ -126,6 +127,7 @@ socket.on('page', (page) => {
         r.style.display = 'none';
         l.style.display = 'none';
     } else if (page == 'question') {
+        console.log('question');
         w.style.display = 'none';
         k.style.display = 'grid';
         s.style.display = 'none';
@@ -133,22 +135,26 @@ socket.on('page', (page) => {
         r.style.display = 'none';
         l.style.display = 'none';
     } else if (page == 'waitforscore') {
+        console.log('waitforscore');
         k.style.display = 'none';
         s.style.display = 'flex';
         c.style.display = 'none';
         r.style.display = 'none';
         l.style.display = 'none';
     } else if (page == 'correct') {
+        console.log('correct');
         s.style.display = 'none';
         c.style.display = 'flex';
         k.style.display = 'none';
         l.style.display = 'none';
     } else if (page == 'wrong') {
+        console.log('wrong');
         s.style.display = 'none';
         r.style.display = 'flex';
         k.style.display = 'none';
         l.style.display = 'none';
     } else if (page == 'leaderboard') {
+        console.log('leaderboard');
         s.style.display = 'none';
         c.style.display = 'none';
         r.style.display = 'none';
@@ -156,6 +162,7 @@ socket.on('page', (page) => {
         l.style.display = 'flex';
         p.style.display = 'none';
     } else if (page == 'podium') {
+        console.log('podium');
         s.style.display = 'none';
         c.style.display = 'none';
         r.style.display = 'none';
@@ -163,6 +170,7 @@ socket.on('page', (page) => {
         l.style.display = 'none';
         p.style.display = 'flex';
     } else if (page == 'end') {
+        console.log('end');
         s.style.display = 'none';
         c.style.display = 'none';
         r.style.display = 'none';
@@ -354,7 +362,7 @@ socket.on('wrong', (score) => {
 });
 
 socket.on('leaderboard', (leaaderboard) => {
-    console.log('leaderboard');
+    //console.log('leaderboard');
     // lb is a sorted in descending order array of objects {name: name, score: score}
     /*
     <p class="topplayer">Player 1 <span class="topscore">1000</span></p>
@@ -368,6 +376,7 @@ socket.on('leaderboard', (leaaderboard) => {
     for (let i = 0; i < leaaderboard.length; i++) {
         let p = document.createElement('p');
         p.classList.add('topplayer');
+        p.classList.add('player');
         if (leaaderboard[i].name == myName) {
             p.classList.add('me');
         }
