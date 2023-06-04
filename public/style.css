@@ -152,21 +152,11 @@ button {
 
 /* ------correct------ */
 #correct {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
     background-color: #abcc60;
 }
 
 /* ------wrong------ */
 #wrong {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
     background-color: red;
 }
 
@@ -183,52 +173,42 @@ button {
     <div class="top" id="p3">Isti</div> // right one
 </div>*/
 
-#podium {
-    text-align: center;
-  }
-  
-  #podium h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-  
-  .top {
+.podium {
+    width: 300px;
+    height: 400px;
     position: relative;
-    display: inline-block;
-    width: 100px;
-    height: 200px;
-    margin: 0 10px;
-    text-align: center;
-    font-size: 18px;
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
   }
   
-  #p1 {
+  .podium-base {
+    width: 100%;
+    height: 20px;
+    background-color: gray;
+  }
+  
+  .top-tier {
+    width: 200px;
+    height: 100px;
     background-color: gold;
-  }
-  
-  #p2 {
-    background-color: silver;
-  }
-  
-  #p3 {
-    background-color: #cd7f32; /* bronze */
-  }
-  
-  .name {
     position: absolute;
     top: 20px;
-    left: 0;
-    right: 0;
-    font-weight: bold;
+    left: 50px;
   }
   
-  .score {
+  .middle-tier {
+    width: 250px;
+    height: 100px;
+    background-color: silver;
     position: absolute;
-    bottom: 20px;
-    left: 0;
-    right: 0;
+    top: 120px;
+    left: 25px;
   }
-
+  
+  .bottom-tier {
+    width: 300px;
+    height: 100px;
+    background-color: #CD7F32;
+    position: absolute;
+    top: 220px;
+    left: 0;
+  }
 /* ------end------ */
