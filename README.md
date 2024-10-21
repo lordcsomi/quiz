@@ -1,6 +1,4 @@
-# quize
-[muzik.azurewebsites.net
-](https://muzik.azurewebsites.net/)amaizing quiz about life and stuff	
+# quiz
 
 # run locally
 1. npm install
