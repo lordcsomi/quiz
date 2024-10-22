@@ -112,7 +112,7 @@ body {
 }
 
 /* Responsive adjustments for smaller screens */
-@media (max-width: 700px) {
+@media (max-width: 750px) {
     .kahoot {
         grid-template:
             "p"
@@ -124,6 +124,10 @@ body {
         grid-template-rows: auto; /* Allow rows to adjust based on content */
         row-gap: 3vh;
         column-gap: 0; /* No columns in single-column layout */
+    }
+
+    .question {
+        font-size: 3ch;
     }
 }
 
