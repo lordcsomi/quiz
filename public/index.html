@@ -52,6 +52,30 @@
             <label for="ans4">ans4</label>
         </div>
     </div>
+    <div class="kahoot" id="kahoot-tf">
+        <p class="question">True or False question template.</p>
+        <div class="answerbox ans1" id="tf-true">
+            <input type="radio" id="tf-ans1" name="tf">
+            <label for="tf-ans1">True</label>
+        </div>
+        <div class="answerbox ans2" id="tf-false">
+            <input type="radio" id="tf-ans2" name="tf">
+            <label for="tf-ans2">False</label>
+        </div>
+    </div>
+    
+    <div class="kahoot" id="kahoot-slider">
+        <p class="question">Slider-based number question.</p>
+        <input type="range" min="0" max="100" value="50" id="slider" />
+        <span id="slider-value">50</span>
+    </div>
+    
+    <div class="kahoot" id="kahoot-input-number">
+        <p class="question">Guess the number question.</p>
+        <input type="number" id="number-guess" inputmode="numeric" pattern="[0-9]*" placeholder="Enter your guess" />
+        <button id="number-guess-submit">Submit</button>
+    </div>
+
     <div class="waiting" id="score"> <!-- ALICE pls do an animation- -->
         <h1>Várakozás az értékelésre</h1>
     </div>
