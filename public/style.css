@@ -95,6 +95,7 @@ body {
 }
 
 /* ------game------ */
+/* ------game------ */
 .kahoot {
     display: grid;
     grid-template:
@@ -102,12 +103,28 @@ body {
         "a b"
         "c d"
         "but but";
-    row-gap: 40px;
-    column-gap: 30px;
-    grid-template-rows: 60px 200px 200px 60px;
+    row-gap: 5vh;
+    column-gap: 5%;
+    grid-template-rows: 10vh 25vh 25vh 10vh;
     text-align: center;
-    margin: 15px;
+    margin: 2%;
     height: 90vh;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 700px) {
+    .kahoot {
+        grid-template:
+            "p"
+            "a"
+            "b"
+            "c"
+            "d"
+            "but";
+        grid-template-rows: auto; /* Allow rows to adjust based on content */
+        row-gap: 3vh;
+        column-gap: 0; /* No columns in single-column layout */
+    }
 }
 
 .question {
