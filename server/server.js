@@ -460,7 +460,7 @@ async function end() { // End the quiz and show the results
     }
 
     // wait for 5 seconds
-    await sleep(30000);
+    await sleep(10000);
 
     // send users to end page
     for (const user in users) {
@@ -471,4 +471,11 @@ async function end() { // End the quiz and show the results
         }
     }
 
+    // reset the game
+    gameRunning = false;
+    users = {};
+    players = [];
+    questionNumber = 0;
+    questionTime = Date.now();
+    console.log('game reset');
 };
