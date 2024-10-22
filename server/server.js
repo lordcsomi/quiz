@@ -15,15 +15,15 @@ let gameRunning = false;
 
 // questions
 let questions = [
-    { 
-        question: 'Melyik moszkvai metróállomást díszítik katonák, sportolók és munkások szobrai?',
-        options: ['Kievszkaja (Киевская)', 'Park Pobedy (Парк Победы)', 'Ploscsagy Revolyucii (Площадь Революции)', 'Arbatszkaja (Арбатская)'],
+    {
+        question: 'Melyik a legforgalmasabb metróhálózat Európában?',
+        options: ['Berlin U-Bahn', 'London Underground', 'Moszkvai Metró', 'Párizsi Metró'],
         correct: 2,
         time: 30
     },
     {
-        question: 'Melyik évben nyílt meg először a moszkvai metró?',
-        options: ['1925', '1935', '1940', '1950'],
+        question: 'Melyik évben kezdett üzemelni a moszkvai metró?',
+        options: ['1925', '1935', '1940', '1960'],
         correct: 1,
         time: 30
     },
@@ -33,33 +33,27 @@ let questions = [
         correct: 1,
         time: 30
     },
+    { 
+        question: 'Melyik moszkvai metróállomást díszítik katonák, sportolók és munkások szobrai?',
+        options: ['Kievszkaja (Киевская)', 'Park Pobedy (Парк Победы)', 'Ploscsagy Revolyucii (Площадь Революции)', 'Arbatszkaja (Арбатская)'],
+        correct: 2,
+        time: 30
+    },
     {
-        question: 'Melyik állatot lehet időnként "lovagolni" látni a moszkvai metrón?',
+        question: 'Melyik állatot lehet időnként látni a moszkvai metrón?',
         options: ['Macskák', 'Kutyák', 'Medvék', 'Farkasok'],
         correct: 1,
         time: 30
     },
     {
-        question: 'Hány körvonala van a moszkvai metrónak?',
+        question: 'A moszkvai metrónak hány olyan vonla van amelyik körbe megy?',
         options: ['1', '2', '3', '4'],
-        correct: 2,
-        time: 30
-    },
-    {
-        question: 'Melyik a legforgalmasabb metróhálózat Európában?',
-        options: ['Berlin U-Bahn', 'London Underground', 'Moszkvai Metró', 'Párizsi Metró'],
         correct: 2,
         time: 30
     },
     {
         question: 'Naponta átlagosan hány millió utas használja a moszkvai metrót?',
         options: ['5 millió', '6 millió', '7,5 millió', '9 millió'],
-        correct: 2,
-        time: 30
-    },
-    {
-        question: 'Hány percbe telik a leghosszabb megszakítás nélküli utazás a moszkvai metrón?',
-        options: ['10 perc', '12 perc', '15 perc', '20 perc'],
         correct: 2,
         time: 30
     },
@@ -76,8 +70,8 @@ let questions = [
         time: 30
     },
     {
-        question: 'A jelentések szerint hány háziállat (főként kutya) szokott rendszeresen gazda nélkül utazni a moszkvai metrón?',
-        options: ['10', '20', '30', '40'],
+        question: 'A jelentések szerint hány háziállat (főként kutya) szokott gazda nélkül utazni a moszkvai metrón?',
+        options: ['0', '15', '30', '56'],
         correct: 2,
         time: 30
     },
@@ -94,20 +88,14 @@ let questions = [
         time: 30
     },
     {
-        question: 'Melyik évben kezdett üzemelni a moszkvai metró?',
-        options: ['1930', '1935', '1940', '1945'],
-        correct: 1,
-        time: 30
-    },
-    {
         question: 'Hány különböző csillár található a Komszomolszkaja állomáson?',
-        options: ['5', '6', '8', '10'],
+        options: ['2', '5', '8', '17'],
         correct: 2,
         time: 30
     },
     {
-        question: 'Mi a moszkvai metró legrövidebb vonatok közötti intervallumának maximális ideje csúcsidőben?',
-        options: ['60 másodperc', '70 másodperc', '80 másodperc', '90 másodperc'],
+        question: 'Hány másodpercenként indulnak a metrók a csúcsidőszakban?',
+        options: ['120 másodperc', '70 másodperc', '80 másodperc', '90 másodperc'],
         correct: 2,
         time: 30
     }
