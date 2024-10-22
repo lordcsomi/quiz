@@ -13,9 +13,18 @@ w.style.display = 'none';
 const dw = document.getElementById('players'); // div for the players
 const pc = document.getElementById('playercounter'); // player counter: has a p element inside 10/x players
 
+// time bar
+let timerBar = document.getElementById('timer-bar');
+
 // the question 
 const k = document.getElementById('kahoot');
+const kTf = document.getElementById('kahoot-tf');
+const kS = document.getElementById('kahoot-slider');
+const kI = document.getElementById('kahoot-input-number');
 k.style.display = 'none';
+kTf.style.display = 'none';
+kS.style.display = 'none';
+kI.style.display = 'none';
 
 // the question (input)
 let a1 = document.getElementById('ans1');
@@ -28,6 +37,20 @@ let b1 = document.getElementById('answerbox1');
 let b2 = document.getElementById('answerbox2');
 let b3 = document.getElementById('answerbox3');
 let b4 = document.getElementById('answerbox4');
+
+// the true/false question
+let tFi1 = document.getElementById('tf-ans1');
+let tFi2 = document.getElementById('tf-ans2');
+
+let tFb1 = document.getElementById('tf-true');
+let tFb2 = document.getElementById('tf-false');
+
+// the slider question
+let sI = document.getElementById('slider-input');
+
+// the input question
+let iI = document.getElementById('number-guess');
+let iB = document.getElementById('number-guess-submit');
 
 // for waiting for score
 const s = document.getElementById('score');
@@ -126,6 +149,7 @@ socket.on('page', (page) => {
         c.style.display = 'none';
         r.style.display = 'none';
         l.style.display = 'none';
+        timerBar.style.display = 'none';
     } else if (page == 'question') {
         console.log('question');
         w.style.display = 'none';
@@ -134,6 +158,7 @@ socket.on('page', (page) => {
         c.style.display = 'none';
         r.style.display = 'none';
         l.style.display = 'none';
+        timerBar.style.display = 'block';
     } else if (page == 'waitforscore') {
         console.log('waitforscore');
         k.style.display = 'none';
@@ -141,18 +166,21 @@ socket.on('page', (page) => {
         c.style.display = 'none';
         r.style.display = 'none';
         l.style.display = 'none';
+        timerBar.style.display = 'none';
     } else if (page == 'correct') {
         console.log('correct');
         s.style.display = 'none';
         c.style.display = 'flex';
         k.style.display = 'none';
         l.style.display = 'none';
+        timerBar.style.display = 'none';
     } else if (page == 'wrong') {
         console.log('wrong');
         s.style.display = 'none';
         r.style.display = 'flex';
         k.style.display = 'none';
         l.style.display = 'none';
+        timerBar.style.display = 'none';
     } else if (page == 'leaderboard') {
         console.log('leaderboard');
         s.style.display = 'none';
@@ -161,6 +189,7 @@ socket.on('page', (page) => {
         k.style.display = 'none';
         l.style.display = 'flex';
         p.style.display = 'none';
+        timerBar.style.display = 'none';
     } else if (page == 'podium') {
         console.log('podium');
         s.style.display = 'none';
@@ -169,6 +198,7 @@ socket.on('page', (page) => {
         k.style.display = 'none';
         l.style.display = 'none';
         p.style.display = 'flex';
+        timerBar.style.display = 'none';
     } else if (page == 'end') {
         console.log('end');
         s.style.display = 'none';
@@ -178,6 +208,7 @@ socket.on('page', (page) => {
         l.style.display = 'none';
         p.style.display = 'none';
         e.style.display = 'flex';
+        timerBar.style.display = 'none';
     } else {
         console.log('page not found');
     }
@@ -216,26 +247,37 @@ socket.on('question', (nq, no, tl) => {
 
     // set up the timer
     reaminingTime = tl;
-    
-    // for now only conslo log the reamining time every second
-    let timer = setInterval(function() {
-        console.log(reaminingTime);
-        reaminingTime--;
-        if (reaminingTime < 1) {
-            clearInterval(timer);
-        };
-    }, 1000);
-    
-    // clear the question and answer boxes
+    let maxTime = tl;
+
+    // Clear any previous content
     k.innerHTML = '';
 
-    // create the question
+    // Create the timer bar
+    timerBar.style.width = '100%';
+    timerBar.style.backgroundColor = 'green';
+
+    // Update the timer bar every second
+    let timer = setInterval(function() {
+        reaminingTime--;
+        let widthPercent = (reaminingTime / maxTime) * 100;
+        timerBar.style.width = widthPercent + '%';
+
+        // Gradually change color from green to red
+        let redValue = 255 - Math.floor((reaminingTime / maxTime) * 255);
+        let greenValue = Math.floor((reaminingTime / maxTime) * 255);
+        timerBar.style.backgroundColor = `rgb(${redValue}, ${greenValue}, 0)`;
+
+        if (reaminingTime < 1) {
+            clearInterval(timer);
+        }
+    }, 1000);
+
+    // Create the question
     let q = document.createElement('p');
     q.classList.add('question');
-    q.innerHTML = '';
     q.innerHTML = nq;
 
-    // create the answer boxes
+    // Create the answer boxes
     let ab1 = document.createElement('div');
     ab1.classList.add('answerbox');
     ab1.classList.add('ans1');
@@ -253,7 +295,7 @@ socket.on('question', (nq, no, tl) => {
     ab4.classList.add('ans4');
     ab4.id = 'answerbox4';
 
-    // create the radio buttons
+    // Create the radio buttons
     let r1 = document.createElement('input');
     r1.type = 'radio';
     r1.id = 'ans1';
@@ -271,7 +313,7 @@ socket.on('question', (nq, no, tl) => {
     r4.id = 'ans4';
     r4.name = 'q1';
 
-    // create the labels
+    // Create the labels
     let l1 = document.createElement('label');
     l1.for = 'ans1';
     l1.innerHTML = no[0];
@@ -285,7 +327,7 @@ socket.on('question', (nq, no, tl) => {
     l4.for = 'ans4';
     l4.innerHTML = no[3];
 
-    // add the radio buttons and labels to the answer boxes
+    // Add the radio buttons and labels to the answer boxes
     ab1.appendChild(r1);
     ab1.appendChild(l1);
     ab2.appendChild(r2);
@@ -295,26 +337,26 @@ socket.on('question', (nq, no, tl) => {
     ab4.appendChild(r4);
     ab4.appendChild(l4);
 
-    // add the question and answer boxes to the page
+    // Add the question and answer boxes to the page
     k.appendChild(q);
     k.appendChild(ab1);
     k.appendChild(ab2);
     k.appendChild(ab3);
     k.appendChild(ab4);
 
-    // get the answer boxes
+    // Get the answer boxes
     b1 = document.getElementById('answerbox1');
     b2 = document.getElementById('answerbox2');
     b3 = document.getElementById('answerbox3');
     b4 = document.getElementById('answerbox4');
 
-    // get the radio buttons
+    // Get the radio buttons
     a1 = document.getElementById('ans1');
     a2 = document.getElementById('ans2');
     a3 = document.getElementById('ans3');
     a4 = document.getElementById('ans4');
 
-    // event listeners for the multiple choice answers
+    // Event listeners for the multiple choice answers
     b1.addEventListener('click', function() {
         a1.checked = true;
         a2.checked = false;

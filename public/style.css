@@ -107,7 +107,7 @@ body {
     grid-template-rows: 60px 200px 200px 60px;
     text-align: center;
     margin: 15px;
-    height: 100vh;
+    height: 90vh;
 }
 
 .question {
@@ -148,6 +148,16 @@ body {
 }
 button {
     grid-area: but;
+}
+
+.timer-bar {
+    width: 100%;
+    max-width: 100%;
+    height: 10px;
+    background-color: green;
+    border-radius: 5px;
+    margin-top: 20px;
+    transition: width 1s linear, background-color 1s linear;
 }
 
 /* ------correct------ */

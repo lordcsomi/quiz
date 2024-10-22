@@ -17,7 +17,7 @@ let gameRunning = false;
 let questions = [
     { 
         question: 'Which station in the Moscow Metro has a design that includes sculptures of soldiers, athletes, and workers?',
-        options: ['Kievskaya', 'Park Pobedy', 'Ploshchad Revolyutsii', 'Arbatskaya'],
+        options: ['Kievskaya (Киевская)', 'Park Pobedy (Парк Победы)', 'Ploshchad Revolyutsii (Площадь Революции)', 'Arbatskaya (Арбатская)'],
         correct: 2,
         time: 15
     },
