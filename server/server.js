@@ -16,100 +16,100 @@ let gameRunning = false;
 // questions
 let questions = [
     { 
-        question: 'Which station in the Moscow Metro has a design that includes sculptures of soldiers, athletes, and workers?',
-        options: ['Kievskaya (Киевская)', 'Park Pobedy (Парк Победы)', 'Ploshchad Revolyutsii (Площадь Революции)', 'Arbatskaya (Арбатская)'],
+        question: 'Melyik moszkvai metróállomást díszítik katonák, sportolók és munkások szobrai?',
+        options: ['Kievszkaja (Киевская)', 'Park Pobedy (Парк Победы)', 'Ploscsagy Revolyucii (Площадь Революции)', 'Arbatszkaja (Арбатская)'],
         correct: 2,
-        time: 15
+        time: 30
     },
     {
-        question: 'What year did the Moscow Metro first open?',
+        question: 'Melyik évben nyílt meg először a moszkvai metró?',
         options: ['1925', '1935', '1940', '1950'],
         correct: 1,
-        time: 10
+        time: 30
     },
     {
-        question: 'Which color is typically used for the oldest line on the Moscow Metro map?',
-        options: ['Green', 'Red', 'Blue', 'Yellow'],
+        question: 'Melyik szín jelöli általában a moszkvai metró térképén a legrégebbi vonalat?',
+        options: ['Zöld', 'Piros', 'Kék', 'Sárga'],
         correct: 1,
-        time: 10
+        time: 30
     },
     {
-        question: 'Which of these animals can be seen "riding" the Moscow Metro from time to time?',
-        options: ['Cats', 'Dogs', 'Bears', 'Wolves'],
+        question: 'Melyik állatot lehet időnként "lovagolni" látni a moszkvai metrón?',
+        options: ['Macskák', 'Kutyák', 'Medvék', 'Farkasok'],
         correct: 1,
-        time: 10
+        time: 30
     },
     {
-        question: 'How many circle lines does the Moscow Metro have?',
+        question: 'Hány körvonala van a moszkvai metrónak?',
         options: ['1', '2', '3', '4'],
         correct: 2,
-        time: 10
+        time: 30
     },
     {
-        question: 'What is the busiest metro system in Europe?',
-        options: ['Berlin U-Bahn', 'London Underground', 'Moscow Metro', 'Paris Métro'],
+        question: 'Melyik a legforgalmasabb metróhálózat Európában?',
+        options: ['Berlin U-Bahn', 'London Underground', 'Moszkvai Metró', 'Párizsi Metró'],
         correct: 2,
-        time: 15
+        time: 30
     },
     {
-        question: 'How many million passengers use the Moscow Metro every day on average?',
-        options: ['5 million', '6 million', '7.5 million', '9 million'],
+        question: 'Naponta átlagosan hány millió utas használja a moszkvai metrót?',
+        options: ['5 millió', '6 millió', '7,5 millió', '9 millió'],
         correct: 2,
-        time: 10
+        time: 30
     },
     {
-        question: 'How many minutes would it take to travel the longest uninterrupted journey on the Moscow Metro?',
-        options: ['10 minutes', '12 minutes', '15 minutes', '20 minutes'],
+        question: 'Hány percbe telik a leghosszabb megszakítás nélküli utazás a moszkvai metrón?',
+        options: ['10 perc', '12 perc', '15 perc', '20 perc'],
         correct: 2,
-        time: 10
+        time: 30
     },
     {
-        question: 'How many stations does the Moscow Metro have with artistic decorations featuring chandeliers, mosaics, or sculptures?',
-        options: ['40 stations', '60 stations', '80 stations', '100 stations'],
+        question: 'Hány állomás rendelkezik művészi dekorációval, például csillárokkal, mozaikokkal vagy szobrokkal a moszkvai metrón?',
+        options: ['40 állomás', '60 állomás', '80 állomás', '100 állomás'],
         correct: 2,
-        time: 15
+        time: 30
     },
     {
-        question: 'How many different colors are used to identify lines on the Moscow Metro map?',
+        question: 'Hány különböző szín jelöli a moszkvai metró térképén található vonalakat?',
         options: ['10', '12', '15', '18'],
         correct: 2,
-        time: 10
+        time: 30
     },
     {
-        question: 'How many pets (mainly dogs) have been known to regularly ride the Moscow Metro without owners, according to reports?',
+        question: 'A jelentések szerint hány háziállat (főként kutya) szokott rendszeresen gazda nélkül utazni a moszkvai metrón?',
         options: ['10', '20', '30', '40'],
         correct: 2,
-        time: 15
+        time: 30
     },
     {
-        question: 'How many lines does the Moscow Metro currently operate?',
-        options: ['15 lines', '17 lines', '19 lines', '21 lines'],
+        question: 'Hány vonalat üzemeltet jelenleg a moszkvai metró?',
+        options: ['15 vonal', '17 vonal', '19 vonal', '21 vonal'],
         correct: 2,
-        time: 10
+        time: 30
     },
     {
-        question: 'How many meters below ground is the deepest part of the Moscow Metro?',
-        options: ['50 meters', '60 meters', '73 meters', '80 meters'],
+        question: 'Hány méterrel a föld alatt található a moszkvai metró legmélyebb része?',
+        options: ['50 méter', '60 méter', '73 méter', '80 méter'],
         correct: 2,
-        time: 10
+        time: 30
     },
     {
-        question: 'In which year did the Moscow Metro first begin operating?',
+        question: 'Melyik évben kezdett üzemelni a moszkvai metró?',
         options: ['1930', '1935', '1940', '1945'],
         correct: 1,
-        time: 10
+        time: 30
     },
     {
-        question: 'How many different chandeliers can be found at Komsomolskaya Station?',
+        question: 'Hány különböző csillár található a Komszomolszkaja állomáson?',
         options: ['5', '6', '8', '10'],
         correct: 2,
-        time: 15
+        time: 30
     },
     {
-        question: 'What is the maximum number of seconds for the shortest interval between trains during peak hours on the Moscow Metro?',
-        options: ['60 seconds', '70 seconds', '80 seconds', '90 seconds'],
+        question: 'Mi a moszkvai metró legrövidebb vonatok közötti intervallumának maximális ideje csúcsidőben?',
+        options: ['60 másodperc', '70 másodperc', '80 másodperc', '90 másodperc'],
         correct: 2,
-        time: 10
+        time: 30
     }
 ];
 
