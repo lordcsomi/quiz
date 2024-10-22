@@ -7,52 +7,112 @@ const path = require("path");
 const os = require('os');
 
 // global variables
-let version = '0.2.0';
-let environment = 'development';
-let host = 'localhost';
-let port = 8080;
+const version = '0.8.0';
+const environment = 'development';
+const host = 'localhost';
+const port = 8080;
 let gameRunning = false;
 
 // questions
 let questions = [
     { 
-    question: 'What is the capital of France?',
-    options: ['Paris', 'London', 'Berlin', 'Madrid'],
-    correct: 0,
-    time : 10
+        question: 'Which station in the Moscow Metro has a design that includes sculptures of soldiers, athletes, and workers?',
+        options: ['Kievskaya', 'Park Pobedy', 'Ploshchad Revolyutsii', 'Arbatskaya'],
+        correct: 2,
+        time: 15
     },
     {
-    question: 'What is the capital of Spain?',
-    options: ['Paris', 'London', 'Berlin', 'Madrid'],
-    correct: 3,
-    time : 10
-
+        question: 'What year did the Moscow Metro first open?',
+        options: ['1925', '1935', '1940', '1950'],
+        correct: 1,
+        time: 10
     },
     {
-    question: 'What is the capital of Germany?',
-    options: ['Paris', 'London', 'Berlin', 'Madrid'],
-    correct: 2,
-    time : 10
+        question: 'Which color is typically used for the oldest line on the Moscow Metro map?',
+        options: ['Green', 'Red', 'Blue', 'Yellow'],
+        correct: 1,
+        time: 10
     },
     {
-    question: 'What is the capital of England?',
-    options: ['Paris', 'London', 'Berlin', 'Madrid'],
-    correct: 1,
-    time : 10
+        question: 'Which of these animals can be seen "riding" the Moscow Metro from time to time?',
+        options: ['Cats', 'Dogs', 'Bears', 'Wolves'],
+        correct: 1,
+        time: 10
     },
     {
-    question: 'Is this is the end?',
-    options: ['Yes', 'NO', 'YESS', 'NO SIR'],
-    correct: 3,
-    time : 10
+        question: 'How many circle lines does the Moscow Metro have?',
+        options: ['1', '2', '3', '4'],
+        correct: 2,
+        time: 10
     },
     {
-    question: 'Which is the correct one?',
-    options: ['Muzik', 'Miczik', 'Muzik', 'Miczik'],
-    correct: 1,
-    time : 15
+        question: 'What is the busiest metro system in Europe?',
+        options: ['Berlin U-Bahn', 'London Underground', 'Moscow Metro', 'Paris Métro'],
+        correct: 2,
+        time: 15
     },
+    {
+        question: 'How many million passengers use the Moscow Metro every day on average?',
+        options: ['5 million', '6 million', '7.5 million', '9 million'],
+        correct: 2,
+        time: 10
+    },
+    {
+        question: 'How many minutes would it take to travel the longest uninterrupted journey on the Moscow Metro?',
+        options: ['10 minutes', '12 minutes', '15 minutes', '20 minutes'],
+        correct: 2,
+        time: 10
+    },
+    {
+        question: 'How many stations does the Moscow Metro have with artistic decorations featuring chandeliers, mosaics, or sculptures?',
+        options: ['40 stations', '60 stations', '80 stations', '100 stations'],
+        correct: 2,
+        time: 15
+    },
+    {
+        question: 'How many different colors are used to identify lines on the Moscow Metro map?',
+        options: ['10', '12', '15', '18'],
+        correct: 2,
+        time: 10
+    },
+    {
+        question: 'How many pets (mainly dogs) have been known to regularly ride the Moscow Metro without owners, according to reports?',
+        options: ['10', '20', '30', '40'],
+        correct: 2,
+        time: 15
+    },
+    {
+        question: 'How many lines does the Moscow Metro currently operate?',
+        options: ['15 lines', '17 lines', '19 lines', '21 lines'],
+        correct: 2,
+        time: 10
+    },
+    {
+        question: 'How many meters below ground is the deepest part of the Moscow Metro?',
+        options: ['50 meters', '60 meters', '73 meters', '80 meters'],
+        correct: 2,
+        time: 10
+    },
+    {
+        question: 'In which year did the Moscow Metro first begin operating?',
+        options: ['1930', '1935', '1940', '1945'],
+        correct: 1,
+        time: 10
+    },
+    {
+        question: 'How many different chandeliers can be found at Komsomolskaya Station?',
+        options: ['5', '6', '8', '10'],
+        correct: 2,
+        time: 15
+    },
+    {
+        question: 'What is the maximum number of seconds for the shortest interval between trains during peak hours on the Moscow Metro?',
+        options: ['60 seconds', '70 seconds', '80 seconds', '90 seconds'],
+        correct: 2,
+        time: 10
+    }
 ];
+
 let questionNumber = 0;
 let questionTime = Date.now();
 const maxPointPerQuestion = 1000;
