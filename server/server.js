@@ -46,7 +46,7 @@ let questions = [
         time: 30
     },
     {
-        question: 'A moszkvai metrónak hány olyan vonla van amelyik körbe megy?',
+        question: 'A moszkvai metrónak hány olyan vonala van amelyik körbe megy?',
         options: ['1', '2', '3', '4'],
         correct: 2,
         time: 30

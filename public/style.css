@@ -4,7 +4,9 @@ body {
     font-family: sans-serif;
     background-color: #f2f2f2;
     color: #000;
-} 
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
 
 /* ------name choosing------ */
 .nameform {
@@ -15,12 +17,23 @@ body {
     height: 100vh;
     margin: 0;
     transition: all 0.5s ease;
+    background-image: url('./moszkva-metroallomasai-16.jpg');
+    background-size: cover;
+    background-position: center;
 }
+
+#nameform-container {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 5%;
+    border-radius: 20px
+}
+
 .nameform h1 {
     margin: 0;
     padding: 0;
     font-size: 4ch;
 }
+
 .nameform input {
     padding: 10px;
     border-radius: 10px;
@@ -36,10 +49,12 @@ body {
     font-size: 2ch;
     cursor: pointer;
 }
+
 .nameform button:hover {
     outline: 1px solid black;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
+
 .nameform p {
     margin: 0;
     padding: 0;
@@ -75,20 +90,25 @@ body {
 }
 
 .player {
-    margin-right: 10px; /* Adjust the spacing between the names */
-    margin-bottom: 10px; /* Adjust the spacing between the lines */
+    margin-right: 10px;
+    /* Adjust the spacing between the names */
+    margin-bottom: 10px;
+    /* Adjust the spacing between the lines */
     background-color: aliceblue;
     padding: 10px;
     border: 1px solid black;
     border-radius: 5px;
 }
+
 .me {
     background-color: #fed766;
 }
+
 .player::before {
     content: "👤";
     margin-right: 5px;
 }
+
 .player:hover {
     outline: 1px solid black;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
@@ -108,7 +128,7 @@ body {
     grid-template-rows: 10vh 25vh 25vh 10vh;
     text-align: center;
     margin: 2%;
-    height: 90vh;
+    height: 85vh;
 }
 
 /* Responsive adjustments for smaller screens */
@@ -121,9 +141,11 @@ body {
             "c"
             "d"
             "but";
-        grid-template-rows: auto; /* Allow rows to adjust based on content */
+        grid-template-rows: auto;
+        /* Allow rows to adjust based on content */
         row-gap: 3vh;
-        column-gap: 0; /* No columns in single-column layout */
+        column-gap: 0;
+        /* No columns in single-column layout */
     }
 
     .question {
@@ -137,6 +159,7 @@ body {
     align-self: center;
     align-content: center;
 }
+
 .answerbox {
     border-radius: 20px;
     cursor: pointer;
@@ -146,27 +169,33 @@ body {
     border: 2px solid black;
     font-size: 2.5ch;
 }
+
 .answerbox:hover {
     outline: 1px solid black;
     transform: translateY(-5px);
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
+
 .ans1 {
     grid-area: a;
     background-color: #fed766;
 }
+
 .ans2 {
     grid-area: b;
     background-color: #f2a359;
 }
+
 .ans3 {
     grid-area: c;
     background-color: #abcc60;
 }
+
 .ans4 {
     grid-area: d;
     background-color: #cee397;
 }
+
 button {
     grid-area: but;
 }
@@ -208,38 +237,39 @@ button {
     width: 300px;
     height: 400px;
     position: relative;
-  }
-  
-  .podium-base {
+}
+
+.podium-base {
     width: 100%;
     height: 20px;
     background-color: gray;
-  }
-  
-  .top-tier {
+}
+
+.top-tier {
     width: 200px;
     height: 100px;
     background-color: gold;
     position: absolute;
     top: 20px;
     left: 50px;
-  }
-  
-  .middle-tier {
+}
+
+.middle-tier {
     width: 250px;
     height: 100px;
     background-color: silver;
     position: absolute;
     top: 120px;
     left: 25px;
-  }
-  
-  .bottom-tier {
+}
+
+.bottom-tier {
     width: 300px;
     height: 100px;
     background-color: #CD7F32;
     position: absolute;
     top: 220px;
     left: 0;
-  }
+}
+
 /* ------end------ */

@@ -10,18 +10,28 @@
 </head>
 <body>
     <div class="nameform" id="nameform">
-        <h1 for="nameput"> Moszkvai metró quiz</h1>
-        <div>
-            <input type="text" id="nameput" placeholder="Név" autocomplete="off">
-            <button id="namebutton">Küldés</button>
+        <div id="nameform-container">
+            <h1 for="nameput"> Moszkvai metró quiz</h1>
+            <div>
+                <input type="text" id="nameput" placeholder="Név" autocomplete="off">
+                <button id="namebutton">Küldés</button>
+            </div>
+            <p>Nem, nincsen név ellenőrzés szóval csak okosan!</p>
         </div>
-        <p>Nem, nincsen név ellenőrzés szóval csak okosan!</p>
     </div>
     <div class="waiting" id="waiting">
         <div class="playercounter" id="playercounter">
             <p id="playercount">10/0</p>
         </div>
-        <h1>Várakozás a többiekre...</h1> <!-- ALICE pls do a ... animation (. => .. =>... repeat)-->
+        <h1 id="waiting-text">Várakozás a többiekre...</h1> <!-- ALICE pls do a ... animation (. => .. =>... repeat)-->
+        <script>
+            const waitingText = document.getElementById('waiting-text');
+            let dots = 0;
+            setInterval(() => {
+            dots = (dots + 1) % 4;
+            waitingText.textContent = 'Várakozás a többiekre' + '.'.repeat(dots);
+            }, 500);
+        </script>
         <div class="players" id="players">
             <!-- Add more <p> elements for additional players -->
             <!--
@@ -79,7 +89,7 @@
         <button id="number-guess-submit">Enter</button>
     </div>
 
-    <div class="timer-bar" id="timer-bar"></div>
+    <div class="timer-bar" id="timer-bar" style="display: none;"></div>
 
     <div class="waiting" id="score"> <!-- ALICE pls do an animation- -->
         <h1>Várakozás az értékelésre</h1>
