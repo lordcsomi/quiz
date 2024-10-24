@@ -81,6 +81,7 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
+    background-color: transparent;
 }
 
 .players {
@@ -210,14 +211,115 @@ button {
     transition: width 1s linear, background-color 1s linear;
 }
 
-/* ------correct------ */
-#correct {
-    background-color: #abcc60;
+
+/* ------correct answer notification------ */
+#correct, #wrong {
+    background-color: #abcc60; /* Default for correct, overridden for wrong */
+    color: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    border: 2px solid #7fa847; /* Adjusted dynamically */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    font-size: 3ch;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 80%;
+    margin: 30px auto;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    overflow-y: auto; /* Allow content to scroll if it overflows */
+    max-height: 80vh; /* Prevent it from taking more than 80% of viewport height */
 }
 
-/* ------wrong------ */
+/* Ensure elements scale properly on smaller screens */
+@media (max-width: 750px) {
+    #correct, #wrong {
+        max-width: 90%;
+        padding: 15px;
+        font-size: 2.5ch;
+        border-radius: 10px;
+    }
+
+    #correct h1, #wrong h1 {
+        font-size: 3ch;
+    }
+
+    #yscore, #nscore {
+        padding: 8px 15px;
+        font-size: 2ch;
+        border-radius: 8px;
+    }
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 500px) {
+    #correct, #wrong {
+        font-size: 2ch;
+        padding: 10px;
+        margin: 15px auto;
+        max-height: 70vh; /* Reduce height slightly on very small screens */
+    }
+
+    #correct h1, #wrong h1 {
+        font-size: 2.5ch;
+    }
+
+    #yscore, #nscore {
+        padding: 5px 10px;
+        font-size: 1.8ch;
+    }
+}
+
+/* Specific styling for wrong card */
 #wrong {
-    background-color: red;
+    background-color: #f25c5c;
+    border: 2px solid #d9534f;
+}
+
+/* Subtle scroll indicator */
+#correct::-webkit-scrollbar, #wrong::-webkit-scrollbar {
+    width: 6px;
+}
+
+#correct::-webkit-scrollbar-thumb, #wrong::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+}
+
+/* Adjust hover effects */
+#correct:hover, #wrong:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Styling for the score within the cards */
+#yscore {
+    background-color: #ffffff; /* White background for score */
+    color: #7fa847; /* Dark green text */
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 2.5ch;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+#nscore {
+    background-color: #ffffff; /* White background for score */
+    color: #d9534f; /* Dark red text */
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 2.5ch;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+#correct, #wrong {
+    animation: fadeIn 0.5s ease-out;
 }
 
 /* ------leaderboard------ */
@@ -271,5 +373,3 @@ button {
     top: 220px;
     left: 0;
 }
-
-/* ------end------ */

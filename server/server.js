@@ -263,6 +263,14 @@ io.on('connection', (socket) => {
             console.log('game already running');
             return;
         }
+        if (players.length < expectedPlayers) {
+            console.log('not enough players');
+            return;
+        }
+        if (players.length === 0) {
+            console.log('no players');
+            return;
+        }
         gameRunning = true;
 
         // for every user if the user state is waiting
@@ -294,6 +302,14 @@ function sleep(ms) {
 async function quiz() {
     // Loop through the questions
     for (let i = 0; i < questions.length; i++) {
+        console.log(players)
+        if (players.length === 0) {
+            console.log('No players in the game');
+            gameRunning = false;
+            return;
+        }
+
+
         // if there are no users in game
         const currentQuestion = questions[i].question;
         questionNumber = i;
@@ -371,14 +387,14 @@ async function quiz() {
                     io.to(users[user].socket).emit('correct', users[user].score[i]);
                     io.to(users[user].socket).emit('page', 'correct');
                 } else {
-                    io.to(users[user].socket).emit('wrong', users[user].score[i]);
+                    io.to(users[user].socket).emit('wrong', users[user].score[i], questions[i]);
                     io.to(users[user].socket).emit('page', 'wrong');
                 }
             }
         }
 
         // wait for 5 seconds
-        await sleep(5000);
+        await sleep(4500);
 
         // if last round
         if (i == questions.length - 1) {

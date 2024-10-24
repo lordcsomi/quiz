@@ -247,7 +247,7 @@ socket.on('question', (nq, no, tl) => {
 
     // set up the timer
     reaminingTime = tl;
-    let maxTime = tl;
+    let maxTime = tl-3;
 
     // Clear any previous content
     k.innerHTML = '';
@@ -396,11 +396,22 @@ socket.on('question', (nq, no, tl) => {
 });
 
 socket.on('correct', (score) => {
-    cp.innerHTML = score;
+    cp.innerHTML = '+' + score + ' pont';
 });
 
-socket.on('wrong', (score) => {
-    rp.innerHTML = score;
+socket.on('wrong', (score, fullquestion) => {
+    rp.innerHTML = score + ' pont';
+    console.log(fullquestion);
+    let correctAnswer = document.createElement('p');
+    correctAnswer.classList.add('correct-answer');
+    correctAnswer.innerHTML = 'A jó válasz: ' + fullquestion.options[fullquestion.correct];
+    r.appendChild(correctAnswer);
+    setTimeout(() => { // lol quick fix
+        let correctAnswer = document.querySelector('.correct-answer');
+        if (correctAnswer) {
+            correctAnswer.remove();
+        }
+    }, 5000);
 });
 
 socket.on('leaderboard', (leaaderboard) => {
