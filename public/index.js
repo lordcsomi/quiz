@@ -415,28 +415,53 @@ socket.on('wrong', (score, fullquestion) => {
 });
 
 socket.on('leaderboard', (leaaderboard) => {
-    //console.log('leaderboard');
-    // lb is a sorted in descending order array of objects {name: name, score: score}
-    /*
-    <p class="topplayer">Player 1 <span class="topscore">1000</span></p>
-    <p class="topplayer">Player 2 <span class="topscore">1000</span></p> 
-    */
-
-    // clear the leaderboard
+    // Clear the leaderboard
     lb.innerHTML = '';
 
-    // create the leaderboard
+    // Create the leaderboard with ranking numbers
     for (let i = 0; i < leaaderboard.length; i++) {
-        let p = document.createElement('p');
-        p.classList.add('topplayer');
-        p.classList.add('player');
-        if (leaaderboard[i].name == myName) {
-            p.classList.add('me');
+        // Create the main container for each player entry
+        let playerEntry = document.createElement('div');
+        playerEntry.classList.add('player-entry');
+
+        // Highlight the current player
+        if (leaaderboard[i].name === myName) {
+            playerEntry.classList.add('me'); // Add "me" class for current player
         }
-        p.innerHTML = leaaderboard[i].name + ' <span class="topscore">' + leaaderboard[i].score + '</span>';
-        lb.appendChild(p);
-    };
+
+        // Create the rank element
+        let rank = document.createElement('div');
+        rank.classList.add('rank');
+        rank.textContent = `${i + 1}.`;
+
+        // Create the player card container
+        let playerCard = document.createElement('div');
+        playerCard.classList.add('player-card');
+
+        // Create the player info container
+        let playerInfo = document.createElement('div');
+        playerInfo.classList.add('player-info');
+        playerInfo.textContent = leaaderboard[i].name;
+
+        // Create the score element
+        let score = document.createElement('span');
+        score.classList.add('topscore');
+        score.textContent = leaaderboard[i].score;
+
+        // Append player info and score to the player card
+        playerCard.appendChild(playerInfo);
+        playerCard.appendChild(score);
+
+        // Append rank and player card to the main player entry
+        playerEntry.appendChild(rank);
+        playerEntry.appendChild(playerCard);
+
+        // Add the player entry to the leaderboard
+        lb.appendChild(playerEntry);
+    }
 });
+
+
 
 socket.on('podium', (podium) => {
     console.log('podium');

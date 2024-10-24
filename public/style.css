@@ -323,6 +323,146 @@ button {
 }
 
 /* ------leaderboard------ */
+#leaderboard {
+    background-color: #ffffff;
+    color: #000;
+    font-size: 2ch;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    max-width: 100%;
+    margin: 30px auto;
+    overflow-y: auto; /* Allow scrolling if needed */
+    max-height: 80vh; /* Prevent from overflowing the screen */
+}
+
+#leaderboard h1 {
+    font-size: 4ch;
+    color: #222;
+    margin-bottom: 20px;
+}
+
+/* Container for each player entry */
+.player-entry {
+    display: flex;
+    align-items: center;
+    background-color: #f2f2f2;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #e0e0e0;
+    font-size: 2.5ch;
+    margin: 5px 0;
+    width: 90%;
+    max-width: 600px;
+    transition: transform 0.2s ease-in-out, background-color 0.2s;
+}
+
+/* Placement number */
+.rank {
+    font-weight: bold;
+    font-size: 2.5ch;
+    width: 40px; /* Fixed width for alignment */
+    text-align: right;
+    margin-right: 10px; /* Space between rank and player card */
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+/* Player card */
+.player-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1; /* Take up remaining space */
+    padding: 10px 15px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    border: 1px solid #e0e0e0;
+    overflow: hidden; /* Ensure content doesn't overflow */
+}
+
+/* Emoji and name on the left, score on the right */
+.player-info {
+    display: flex;
+    align-items: center;
+    overflow: hidden; /* Prevent long names from breaking layout */
+    text-overflow: ellipsis; /* Add ellipsis for long names */
+    white-space: nowrap; /* Prevent wrapping */
+    max-width: 70%; /* Ensure name doesn’t take up all space */
+    flex: 1; /* Allow it to grow but stay within max width */
+}
+
+.player-info::before {
+    content: "👤"; /* Player emoji */
+    margin-right: 5px;
+}
+
+/* Ensure score stays visible even if name is long */
+.topscore {
+    font-weight: bold;
+    flex-shrink: 0; /* Prevent the score from shrinking */
+    margin-left: 10px; /* Add space between name and score */
+    text-align: right; /* Align the score to the right */
+}
+
+/* Highlight the current player */
+.player-entry.me {
+    background-color: #ffd700; /* Light gold background to highlight */
+    color: #222;
+    font-weight: bold;
+    border: 2px solid #ffc107; /* Slightly darker border */
+}
+
+/* Responsive adjustments */
+@media (min-width: 751px) {
+    .player-card {
+        max-width: calc(100% - 50px); /* Ensure the player card doesn't overflow */
+    }
+}
+
+@media (max-width: 750px) {
+    #leaderboard {
+        max-width: 95%;
+        padding: 15px;
+        font-size: 2.5ch;
+    }
+
+    .player-entry {
+        font-size: 2ch;
+        padding: 8px 10px;
+    }
+
+    .rank {
+        font-size: 2ch;
+    }
+
+    #leaderboard h1 {
+        font-size: 3ch;
+    }
+}
+
+@media (max-width: 500px) {
+    #leaderboard {
+        font-size: 2ch;
+        padding: 10px;
+        max-height: 70vh;
+    }
+
+    .player-entry {
+        font-size: 1.8ch;
+        padding: 5px 8px;
+    }
+
+    .rank {
+        font-size: 1.8ch;
+    }
+
+    #leaderboard h1 {
+        font-size: 2.5ch;
+    }
+}
+
 
 
 
