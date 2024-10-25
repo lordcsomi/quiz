@@ -47,8 +47,8 @@ let questions = [
     },
     {
         question: 'A moszkvai metrónak hány olyan vonala van amelyik körbe megy?',
-        options: ['1', '2', '3', '4'],
-        correct: 2,
+        options: ['1', '2', '4', '3'],
+        correct: 3,
         time: 30
     },
     {
@@ -59,8 +59,8 @@ let questions = [
     },
     {
         question: 'Hány állomás rendelkezik művészi dekorációval, például csillárokkal, mozaikokkal vagy szobrokkal a moszkvai metrón?',
-        options: ['40 állomás', '60 állomás', '80 állomás', '100 állomás'],
-        correct: 2,
+        options: ['80 állomás', '60 állomás', '13 állomás', '100 állomás'],
+        correct: 0,
         time: 30
     },
     {
@@ -71,8 +71,8 @@ let questions = [
     },
     {
         question: 'Hány vonalat üzemeltet jelenleg a moszkvai metró?',
-        options: ['15 vonal', '17 vonal', '19 vonal', '21 vonal'],
-        correct: 2,
+        options: ['15 vonal', '19 vonal', '21 vonal', '23 vonal'],
+        correct: 1,
         time: 30
     },
     {
@@ -83,14 +83,14 @@ let questions = [
     },
     {
         question: 'Hány különböző csillár található a Komszomolszkaja állomáson?',
-        options: ['2', '5', '8', '17'],
-        correct: 2,
+        options: ['15', '5', '20', '8'],
+        correct: 3,
         time: 30
     },
     {
         question: 'Hány másodpercenként indulnak a metrók a csúcsidőszakban?',
-        options: ['120 másodperc', '70 másodperc', '80 másodperc', '90 másodperc'],
-        correct: 2,
+        options: ['80 másodperc', '70 másodperc', '100 másodperc', '90 másodperc'],
+        correct: 0,
         time: 30
     }
 ];
