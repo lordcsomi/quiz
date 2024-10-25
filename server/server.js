@@ -148,6 +148,10 @@ io.on('connection', (socket) => {
 
     socket.on('name', (name) => {
         // check if the name is valid
+        if (gameRunning) {
+            socket.emit('alert', 'The game has already started.');
+            return;
+        }
         if (name.length < 1) {
             socket.emit('alert', 'Please enter a name.');
             return;
