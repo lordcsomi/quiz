@@ -466,38 +466,61 @@ socket.on('leaderboard', (leaaderboard) => {
 socket.on('podium', (podium) => {
     console.log('podium');
     console.log(podium);
-    // podium is an array of objects {name: name, score: score}
-    /*
-    <div class="waiting" id="podium">
-        <h1>Podium</h1>
-        <div class="top" id="p1"></div>
-        <div class="top" id="p2"></div>
-        <div class="top" id="p3"></div>
-    </div>
-    */
 
-    // clear the podium
-    p1.innerHTML = '';
-    p2.innerHTML = '';
-    p3.innerHTML = '';
+    // Clear the podium
+    p.innerHTML = '<h1>Pódium</h1>';
 
-    // create the podium
-    let p1p = document.createElement('p');
-    p1p.classList.add('topplayer');
-    p1p.innerHTML = podium[0].name + ' <span class="topscore">' + podium[0].score + '</span>';
-    p1.appendChild(p1p);
+    // Function to create player entries
+    const createPlayerEntry = (rank, player) => {
+        // Create the main container for each player entry
+        let playerEntry = document.createElement('div');
+        playerEntry.classList.add('player-entry');
 
-    let p2p = document.createElement('p');
-    p2p.classList.add('topplayer');
-    p2p.innerHTML = podium[1].name + ' <span class="topscore">' + podium[1].score + '</span>';
-    p2.appendChild(p2p);
+        // Highlight the current player
+        if (player.name === myName) {
+            playerEntry.classList.add('me');
+        }
 
-    let p3p = document.createElement('p');
-    p3p.classList.add('topplayer');
-    p3p.innerHTML = podium[2].name + ' <span class="topscore">' + podium[2].score + '</span>';
-    p3.appendChild(p3p);
+        // Create the rank element with special icons for top 3
+        let rankElement = document.createElement('div');
+        rankElement.classList.add(rank <= 3 ? `rank-${rank}` : 'rank-default');
+        
+        // Use special emojis for top 3, numbers for others
+        if (rank > 3) {
+            rankElement.textContent = `${rank}.`;
+        }
 
+        // Create the player card container
+        let playerCard = document.createElement('div');
+        playerCard.classList.add('player-card');
+
+        // Create the player info container
+        let playerInfo = document.createElement('div');
+        playerInfo.classList.add('player-info');
+        playerInfo.textContent = player.name;
+
+        // Create the score element
+        let score = document.createElement('span');
+        score.classList.add('topscore');
+        score.textContent = player.score;
+
+        // Assemble the player entry
+        playerCard.appendChild(playerInfo);
+        playerCard.appendChild(score);
+        playerEntry.appendChild(rankElement);
+        playerEntry.appendChild(playerCard);
+
+        return playerEntry;
+    };
+
+    // Add all players in ranked order
+    for (let i = 0; i < podium.length; i++) {
+        const playerEntry = createPlayerEntry(i + 1, podium[i]);
+        p.appendChild(playerEntry);
+    }
 });
+
+
 
 // disconnect
 socket.on('disconnect', () => {

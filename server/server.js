@@ -64,12 +64,6 @@ let questions = [
         time: 30
     },
     {
-        question: 'Hány különböző szín jelöli a moszkvai metró térképén található vonalakat?',
-        options: ['10', '12', '15', '18'],
-        correct: 2,
-        time: 30
-    },
-    {
         question: 'A jelentések szerint hány háziállat (főként kutya) szokott gazda nélkül utazni a moszkvai metrón?',
         options: ['0', '15', '30', '56'],
         correct: 2,
@@ -83,7 +77,7 @@ let questions = [
     },
     {
         question: 'Hány méterrel a föld alatt található a moszkvai metró legmélyebb része?',
-        options: ['50 méter', '60 méter', '73 méter', '80 méter'],
+        options: ['52 méter', '60 méter', '73 méter', '80 méter'],
         correct: 2,
         time: 30
     },

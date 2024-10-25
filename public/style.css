@@ -466,50 +466,144 @@ button {
 
 
 
-/* ------podium------ */
-/* 
-<div class="waiting" id="podium">
-    <h1>Podium</h1>
-    <div class="top" id="p1">Csomi</div> // middle one
-    <div class="top" id="p2">Anna</div> // left one
-    <div class="top" id="p3">Isti</div> // right one
-</div>*/
-
+/* ------Podium taking full screen------ */
 .podium {
-    width: 300px;
-    height: 400px;
-    position: relative;
+    background-color: #ffffff;
+    color: #000;
+    font-size: 2ch;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100vw;
+    height: 100vh; /* Full height */
+    padding-top: 30px;
+    overflow-y: auto; /* Allow scrolling if needed */
 }
 
-.podium-base {
-    width: 100%;
-    height: 20px;
-    background-color: gray;
+/* Title at the top */
+.podium h1 {
+    font-size: 4ch;
+    color: #222;
+    margin-bottom: 20px;
 }
 
-.top-tier {
-    width: 200px;
-    height: 100px;
-    background-color: gold;
-    position: absolute;
-    top: 20px;
-    left: 50px;
+/* Podium player entry */
+.podium .player-entry {
+    display: flex;
+    align-items: center;
+    background-color: #f2f2f2;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #e0e0e0;
+    font-size: 2.5ch;
+    margin: 5px 20px; /* Add space around entries */
+    width: calc(100% - 40px);
+    max-width: 600px;
+    transition: transform 0.2s ease-in-out, background-color 0.2s;
 }
 
-.middle-tier {
-    width: 250px;
-    height: 100px;
-    background-color: silver;
-    position: absolute;
-    top: 120px;
-    left: 25px;
+/* Placement emoji for top 3 */
+.rank-1::before {
+    content: "👑"; /* Crown for 1st place */
+    margin-right: 5px;
 }
 
-.bottom-tier {
-    width: 300px;
-    height: 100px;
-    background-color: #CD7F32;
-    position: absolute;
-    top: 220px;
-    left: 0;
+.rank-2::before {
+    content: "💎"; /* Diamond for 2nd place */
+    margin-right: 5px;
+}
+
+.rank-3::before {
+    content: "🥉"; /* Bronze Medal for 3rd place */
+    margin-right: 5px;
+}
+
+/* Numbered placement starting from 4 */
+.rank-default {
+    font-weight: bold;
+    font-size: 2.5ch;
+    width: 40px; /* Fixed width for alignment */
+    text-align: right;
+    margin-right: 10px; /* Space between rank and player card */
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+/* Player card */
+.podium .player-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1; /* Take up remaining space */
+    padding: 10px 15px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    border: 1px solid #e0e0e0;
+    overflow: hidden; /* Ensure content doesn't overflow */
+}
+
+/* Emoji and name on the left, score on the right */
+.podium .player-info {
+    display: flex;
+    align-items: center;
+    overflow: hidden; /* Prevent long names from breaking layout */
+    text-overflow: ellipsis; /* Add ellipsis for long names */
+    white-space: nowrap; /* Prevent wrapping */
+    max-width: 70%; /* Ensure name doesn’t take up all space */
+    flex: 1; /* Allow it to grow but stay within max width */
+}
+
+/* Special emojis for top ranks */
+.rank-1, .rank-2, .rank-3 {
+    width: 40px; /* Ensure the icons are aligned */
+    text-align: center; /* Center the icons */
+}
+
+
+/* Adjustments for small screens */
+@media (min-width: 751px) {
+    .podium .player-card {
+        max-width: calc(100% - 50px); /* Ensure the player card doesn't overflow */
+    }
+}
+
+@media (max-width: 750px) {
+    .podium {
+        padding: 15px;
+        font-size: 2.5ch;
+    }
+
+    .podium .player-entry {
+        font-size: 2ch;
+        padding: 8px 10px;
+    }
+
+    .rank-default {
+        font-size: 2ch;
+    }
+
+    .podium h1 {
+        font-size: 3ch;
+    }
+}
+
+@media (max-width: 500px) {
+    .podium {
+        font-size: 2ch;
+        padding: 10px;
+    }
+
+    .podium .player-entry {
+        font-size: 1.8ch;
+        padding: 5px 8px;
+    }
+
+    .rank-default {
+        font-size: 1.8ch;
+    }
+
+    .podium h1 {
+        font-size: 2.5ch;
+    }
 }
