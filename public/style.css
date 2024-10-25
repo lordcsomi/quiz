@@ -322,7 +322,7 @@ button {
     animation: fadeIn 0.5s ease-out;
 }
 
-/* ------leaderboard------ */
+/* ------Full-Screen Leaderboard------ */
 #leaderboard {
     background-color: #ffffff;
     color: #000;
@@ -332,19 +332,20 @@ button {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    max-width: 100%;
-    margin: 30px auto;
+    width: 100vw; /* Full screen width */
+    height: 100vh; /* Full screen height */
+    padding-top: 30px;
     overflow-y: auto; /* Allow scrolling if needed */
-    max-height: 80vh; /* Prevent from overflowing the screen */
 }
 
+/* Title at the top */
 #leaderboard h1 {
     font-size: 4ch;
     color: #222;
     margin-bottom: 20px;
 }
 
-/* Container for each player entry */
+/* Leaderboard player entry */
 .player-entry {
     display: flex;
     align-items: center;
@@ -353,9 +354,9 @@ button {
     border-radius: 10px;
     border: 1px solid #e0e0e0;
     font-size: 2.5ch;
-    margin: 5px 0;
-    width: 90%;
-    max-width: 600px;
+    margin: 5px 20px; /* Add space around entries */
+    width: calc(100% - 40px); /* Full width with padding */
+    max-width: 800px; /* Limit the width on larger screens */
     transition: transform 0.2s ease-in-out, background-color 0.2s;
 }
 
@@ -423,7 +424,6 @@ button {
 
 @media (max-width: 750px) {
     #leaderboard {
-        max-width: 95%;
         padding: 15px;
         font-size: 2.5ch;
     }
@@ -446,7 +446,6 @@ button {
     #leaderboard {
         font-size: 2ch;
         padding: 10px;
-        max-height: 70vh;
     }
 
     .player-entry {
@@ -462,8 +461,6 @@ button {
         font-size: 2.5ch;
     }
 }
-
-
 
 
 /* ------Podium taking full screen------ */
